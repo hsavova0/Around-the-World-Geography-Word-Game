@@ -1,0 +1,9 @@
+Error message: 'pip' is not recognized as an internal or external command, operable program or batch file.
+Solution: 
+1) Right click on This PC
+2) Go to Advanced System Settings
+3) Environment Variables
+4) Path
+5) Edit
+6) New
+7) Here you need to add two paths: 1) the path where the python interpreter was installed (NOT PYCHARM) and 2) the python Scripts in the installation location.
