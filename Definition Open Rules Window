@@ -1,0 +1,11 @@
+# This block of code opens a rules windows.
+
+def open_rules_window():
+    HEIGHT_RULES = 700
+    WIDTH_RULES = 2000
+    master = tk.Tk()
+    canvas_rules = tk.Canvas(master, height=HEIGHT_RULES, width=WIDTH_RULES)
+    canvas_rules.pack()
+    frame_rules = tk.Frame(master, bg='#D2DAF4')
+    frame_rules.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+    master.mainloop()
