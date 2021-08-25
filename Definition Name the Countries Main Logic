@@ -1,0 +1,88 @@
+def name_the_countries_main_logic(countries_list, total_num_countries, fortune_dict):    
+    HEIGHT_COUNTRIES = 700
+    WIDTH_COUNTRIES = 2000
+    master_countries = tk.Toplevel()
+    canvas_countries = tk.Canvas(master_countries, height=HEIGHT_COUNTRIES, width=WIDTH_COUNTRIES)
+    canvas_countries.pack()
+    block = tk.BooleanVar(root, False)
+    while True:
+        master_countries.update_idletasks()
+        master_countries.update()
+        countries_dictionary = {}
+        random.shuffle(countries_list)
+        for letter in range(len(countries_list)):
+            word = countries_list[letter]
+            letter_to_check = word[0]
+            if letter_to_check not in countries_dictionary:
+                countries_dictionary[letter_to_check] = 1
+            else:
+                countries_dictionary[letter_to_check] += 1
+        frame_countries = tk.Frame(master_countries, bg='#D2DAF4')
+        frame_countries.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+        label_total_num_countries_text = tk.Label(frame_countries, text='Total number of countries:')
+        label_total_num_countries_text.place(x=1000, y=25)
+        label_total_num_countries = tk.Label(frame_countries, text=total_num_countries)
+        label_total_num_countries.place(x=1000, y=50)
+        first_letter_of_countries = countries_list[0][0]
+        label_random_letter_countries = tk.Label(frame_countries,
+                                                 text=f'Random Letter: {first_letter_of_countries.upper()}', width=30,
+                                                 font=18)
+        label_random_letter_countries.place(x=350, y=100)
+        label_number_of_countries = tk.Label(frame_countries,
+                                             text=f'Number of countries with this letter: {countries_dictionary[first_letter_of_countries]}',
+                                             width=30, font=18)
+        label_number_of_countries.place(x=350, y=150)
+        label_question_countries = tk.Label(frame_countries, text='Enter your answer here:', width=30, font=18)
+        label_question_countries.place(x=350, y=200)
+        guessed_countries = total_num_countries - len(countries_list)
+        countries_to_guess = total_num_countries - guessed_countries
+        label_countries_to_guess = tk.Label(frame_countries, text=f'Number of countries to guess: {countries_to_guess}')
+        label_countries_to_guess.place(x=1000, y=100)
+        label_number_of_guessed_countries = tk.Label(frame_countries,
+                                                     text=f'Number of guessed countries: {guessed_countries}')
+        label_number_of_guessed_countries.place(x=1000, y=150)
+        entry_country = tk.Entry(master_countries, width=30, font=18)
+        entry_country.place(x=500, y=350)
+        label_answer = tk.Label(frame_countries, text='Your prize will be displayed here', width=100, height=10, font=12)
+        label_answer.place(x=50, y=350)
+
+        def retrieve_user_input_data():
+            current_input = entry_country.get()
+            entry_country.delete(0, tk.END)
+            block.set(False)
+            if current_input in countries_list and first_letter_of_countries == current_input[0][0]:
+                countries_list.remove(current_input)
+                root.withdraw()
+                messagebox.showinfo('App', 'Correct answer!')
+            else:
+                root.withdraw()
+                messagebox.showinfo('App', 'Oops! Error!')
+            return countries_list
+
+        entry_country = tk.Entry(master_countries, width=30, font=18)
+        entry_country.place(x=500, y=350)
+        button_countries_new_windows = tk.Button(frame_countries, text='Enter', width=10, font=18,
+                                                 command=lambda: retrieve_user_input_data())
+        button_countries_new_windows.place(x=700, y=275)
+        countries_dictionary.clear()
+        block.set(True)
+        root.wait_variable(block)
+        if len(countries_list) == 0:
+            guessed_countries = total_num_countries
+            countries_to_guess = 0
+            label_countries_to_guess = tk.Label(frame_countries,
+                                                text=f'Number of countries to guess: {countries_to_guess}')
+            label_countries_to_guess.place(x=1000, y=100)
+            label_number_of_guessed_countries = tk.Label(frame_countries,
+                                                         text=f'Number of guessed countries: {guessed_countries}')
+            label_number_of_guessed_countries.place(x=1000, y=150)
+            keys = list(fortune_dict.keys())
+            random.shuffle(keys)
+            for key, items in fortune_dict.items():
+                key = keys[0]
+                label_answer = tk.Label(frame_countries, text=f'{key}, \n {fortune_dict[key]}', width=100, height=10,
+                                        font=12)
+                label_answer.place(x=50, y=350)
+                break
+            break
+    master_countries.mainloop()
