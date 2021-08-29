@@ -1,0 +1,168 @@
+def continents_1():
+    def countries_1(which_button):
+        if which_button == 'Asia':
+            asia_countries = ['afghanistan', 'armenia', 'azerbaijan', 'bahrain', 'bangladesh', 'bhutan', 'brunei',
+                              'cambodia', 'china', 'cyprus', 'georgia', 'india', 'indonesia', 'iran', 'iraq', 'israel',
+                              'japan', 'jordan', 'kazakhstan', 'kuwait', 'kyrgyzstan', 'laos', 'lebanon', 'malaysia',
+                              'maldives', 'mongolia', 'myanmar', 'nepal', 'north korea', 'oman', 'pakistan',
+                              'palestine', 'philippines', 'qatar', 'russia', 'saudi arabia', 'singapore', 'south korea',
+                              'sri lanka', 'syria', 'taiwan', 'tajikistan', 'thailand', 'timor-leste', 'turkey',
+                              'turkmenistan', 'united arab emirates', 'uzbekistan', 'vietnam', 'yemen']
+            asia_countries_dict = {'afghanistan':'kabul', 'armenia':'yerevan', 'azerbaijan':'baku', 'bahrain':'manama',
+                              'bangladesh':'dhaka', 'bhutan':'thimphu', 'brunei':'bandar seri begawan', 'cambodia':'phnom penh',
+                              'china':'beijing', 'cyprus':'Nicosia', 'georgia':'tbilisi', 'india':'new delhi', 'indonesia':'jakarta',
+                              'iran':'tehran', 'iraq':'baghdad', 'israel':'jerusalem', 'japan':'tokyo', 'jordan':'amman', 'kazakhstan':'nur-sultan',
+                              'kuwait':'kuwait city', 'kyrgyzstan':'bishkek', 'laos':'vientiane', 'lebanon':'beirut', 'malaysia':'kuala lumpur',
+                              'maldives':'male', 'mongolia':'ulaanbaatar', 'myanmar':'naypyidaw', 'nepal':'kathmandu',
+                              'north korea':'pyongyang', 'oman':'muscat', 'pakistan':'islamabad', 'palestine':'jerusalem',
+                              'philippines':'manila', 'qatar':'doha', 'russia':'moscow', 'saudi arabia':'riyadh',
+                              'singapore':'singapore', 'south korea':'seoul', 'sri lanka':'sri jayawardenepura kotte',
+                              'syria':'damascus', 'taiwan':'taipei', 'tajikistan':'dushanbe', 'thailand':'bangkok',
+                              'timor-leste':'dili', 'turkey':'ankara', 'turkmenistan':'ashgabat', 'united arab emirates':'abu dhabi',
+                              'uzbekistan':'tashkent', 'vietnam':'hanoi', 'yemen':'sanaa'}
+            total_number_of_capitals = len(asia_countries)
+            name_the_capitals_main_logic(asia_countries, asia_countries_dict, total_number_of_capitals, fortune_cookies)
+        elif which_button == 'Africa':
+            africa_countries = ['algeria', 'angola', 'benin', 'botswana', 'burkina faso', 'burundi', 'cabo verde',
+                                'cameroon', 'central african republic', 'chad', 'comoros', 'congo', 'cote d\'ivoire',
+                                'djibouti', 'egypt', 'equatorial guinea', 'eritrea', 'eswatini', 'ethiopia', 'gabon',
+                                'gambia', 'ghana', 'guinea', 'guinea-bissau', 'kenya', 'lesotho', 'liberia', 'libya',
+                                'madagascar', 'malawi', 'mali', 'mauritania', 'mauritius', 'morocco', 'mozambique',
+                                'namibia', 'niger', 'nigeria', 'rwanda', 'sao tome and principe', 'senegal',
+                                'seychelles', 'sierra leone', 'somalia', 'south africa', 'south sudan', 'sudan',
+                                'tanzania', 'togo', 'tunisia', 'uganda', 'zambia', 'zimbabwe']
+            africa_countries_dictionary = {'algeria':'algiers', 'angola':'luanda', 'benin':'porto-novo', 'botswana':'gaborone', 'burkina faso':'ouagadougou', 'burundi':'gitega', 'cabo verde':'praia',
+                                'cameroon':'yaounde', 'central african republic':'bangui', 'chad':'n\'djamena', 'comoros':'moroni', 'congo':'kinshasa', 'cote d\'ivoire':'yamoussoukro',
+                                'djibouti':'djibouti', 'egypt':'cairo', 'equatorial guinea':'malabo', 'eritrea':'asmara', 'eswatini':'lobamba ', 'ethiopia':'addis ababa', 'gabon':'libreville',
+                                'gambia':'banjul', 'ghana':'accra', 'guinea':'conakry', 'guinea-bissau':'bissau', 'kenya':'nairobi', 'lesotho':'maseru', 'liberia':'monrovia', 'libya':'tripoli',
+                                'madagascar':'antananarivo', 'malawi':'lilongwe', 'mali':'bamako', 'mauritania':'nouakchott', 'mauritius':'port louis', 'morocco':'rabat', 'mozambique':'maputo',
+                                'namibia':'windhoek', 'niger':'niamey', 'nigeria':'abuja', 'rwanda':'kigali', 'sao tome and principe':'sao tome', 'senegal':'dakar',
+                                'seychelles':'victoria', 'sierra leone':'freetown', 'somalia':'mogadishu', 'south africa':'cape town', 'south sudan':'juba', 'sudan':'khartoum',
+                                'tanzania':'dodoma', 'togo':'lome', 'tunisia':'tunis', 'uganda':'kampala', 'zambia':'lusaka', 'zimbabwe':'harare'}
+            total_number_of_capitals = len(africa_countries)
+            name_the_capitals_main_logic(africa_countries, africa_countries_dictionary, total_number_of_capitals, fortune_cookies)
+        elif which_button == 'Europe':
+            european_countries = ['albania', 'andorra', 'armenia', 'austria', 'azerbaijan', 'belarus', 'belgium',
+                                'bosnia and herzegovina', 'bulgaria', 'croatia', 'cyprus', 'czechia', 'denmark',
+                                'estonia', 'finland', 'france', 'georgia', 'germany', 'greece', 'hungary', 'iceland',
+                                'ireland', 'italy', 'kazakhstan', 'kosovo', 'latvia', 'liechtenstein', 'lithuania',
+                                'luxembourg', 'malta', 'moldova', 'monaco', 'montenegro', 'netherlands',
+                                'north macedonia', 'norway', 'poland', 'portugal', 'romania', 'russia', 'san marino',
+                                'serbia', 'slovakia', 'slovenia', 'spain', 'sweden', 'switzerland', 'turkey', 'ukraine',
+                                'united kingdom', 'vatican city']
+            european_countries_dict = {'albania':'tirana', 'andorra':'andorra la vella', 'armenia':'yerevan', 'austria':'vienna', 'azerbaijan':'baku', 'belarus':'minsk', 'belgium':'brussels',
+                                'bosnia and herzegovina':'sarajevo', 'bulgaria':'sofia', 'croatia':'zagreb', 'cyprus':'nicosia', 'czechia':'prague', 'denmark':'copenhagen',
+                                'estonia':'tallinn', 'finland':'helsinki', 'france':'paris', 'georgia':'tbilisi', 'germany':'berlin', 'greece':'athens', 'hungary':'budapest', 'iceland':'reykjavik',
+                                'ireland':'dublin', 'italy':'rome', 'kazakhstan':'nur-sultan', 'kosovo':'pristina', 'latvia':'riga', 'liechtenstein':'vaduz', 'lithuania':'vilnius',
+                                'luxembourg':'luxembourg', 'malta':'valletta', 'moldova':'chisinau', 'monaco':'monaco', 'montenegro':'podgorica', 'netherlands':'amsterdam',
+                                'north macedonia':'skopje', 'norway':'oslo', 'poland':'', 'portugal':'warsaw', 'romania':'bucharest', 'russia':'moscow', 'san marino':'san marino',
+                                'serbia':'belgrade', 'slovakia':'bratislava', 'slovenia':'ljubljana', 'spain':'madrid', 'sweden':'stockholm', 'switzerland':'bern', 'turkey':'ankara', 'ukraine':'kiev',
+                                'united kingdom':'london', 'vatican city':'vatican city'}
+            total_number_of_capitals = len(european_countries)
+            name_the_capitals_main_logic(european_countries, european_countries_dict, total_number_of_capitals, fortune_cookies)
+        elif which_button == 'North America':
+            north_america_countries = ['antigua and barbuda', 'bahamas', 'barbados', 'belize', 'canada', 'costa rica',
+                                       'cuba', 'dominica', 'dominican republic', 'el salvador', 'grenada', 'guatemala',
+                                       'haiti', 'honduras', 'jamaica', 'mexico', 'nicaragua', 'panama',
+                                       'saint kitts and nevis', 'saint lucia', 'saint vincent and the grenadines',
+                                       'trinidad and tobago', 'united states of america']
+            north_america_countries_dict = {'antigua and barbuda':'saint john\'s', 'bahamas':'nassau', 'barbados':'bridgetown', 'belize':'belmopan', 'canada':'ottawa', 'costa rica':'san jose',
+                                       'cuba':'havana', 'dominica':'roseau', 'dominican republic':'santo domingo', 'el salvador':'san salvador', 'grenada':'saint george\'s', 'guatemala':'guatemala city',
+                                       'haiti':'port-au-prince', 'honduras':'tegucigalpa', 'jamaica':'kingston', 'mexico':'mexico city', 'nicaragua':'managua', 'panama':'panama city',
+                                       'saint kitts and nevis':'basseterre', 'saint lucia':'castries', 'saint vincent and the grenadines':'kingstown',
+                                       'trinidad and tobago':'port of spain', 'united states of america':'washington'}
+            total_number_of_capitals = len(north_america_countries)
+            name_the_capitals_main_logic(north_america_countries, north_america_countries_dict,
+                                         total_number_of_capitals, fortune_cookies)
+        elif which_button == 'Oceania':
+            oceania_countries = ['australia', 'papua new guinea', 'new zeland', 'fiji', 'solomon islands',
+                                 'micronesia', 'vanuatu', 'samoa', 'kiribati', 'tonga', 'marshall islands', 'palau',
+                                 'tuvalu', 'nauru']
+            oceania_countries_dict = {'australia':'canberra', 'papua new guinea':'port moresby', 'new zeland':'wellington', 'fiji':'suva', 'solomon islands':'honiara',
+                                 'micronesia':'palikir', 'vanuatu':'port vila', 'samoa':'apia', 'kiribati':'tarawa', 'tonga':'nuku alofa', 'marshall islands':'majuro', 'palau':'ngerulmud',
+                                 'tuvalu':'funafuti', 'nauru':'yaren district'}
+            total_number_of_capitals = len(oceania_countries)
+            name_the_capitals_main_logic(oceania_countries, oceania_countries_dict, total_number_of_capitals, fortune_cookies)
+        elif which_button == 'South America':
+            south_america_countries = ['argentina', 'bolivia', 'brazil', 'chile', 'colombia', 'ecuador', 'guyana',
+                                       'paraguay', 'peru', 'suriname', 'uruguay', 'venezuela']
+            south_america_countries_dict = {'argentina': 'buenos aires', 'bolivia': 'la paz', 'brazil': 'brasilia',
+                                            'chile': 'santiago', 'colombia': 'bogota', 'ecuador': 'quito', 'guyana':
+                                            'georgetown', 'paraguay': 'asuncion', 'peru': 'lima', 'suriname':
+                                            'paramaribo', 'uruguay': 'montevideo', 'venezuela': 'caracas'}
+            total_number_of_capitals = len(south_america_countries)
+            name_the_capitals_main_logic(south_america_countries, south_america_countries_dict, total_number_of_capitals, fortune_cookies)
+        elif which_button == 'Around the World':
+            around_the_world_countries = ['afghanistan', 'armenia', 'azerbaijan', 'bahrain', 'bangladesh', 'bhutan',
+                                          'brunei', 'cambodia', 'china', 'cyprus', 'georgia', 'india', 'indonesia',
+                                          'iran', 'iraq', 'israel', 'japan', 'jordan', 'kazakhstan', 'kuwait',
+                                          'kyrgyzstan', 'laos', 'lebanon', 'malaysia', 'maldives', 'mongolia',
+                                          'myanmar', 'nepal', 'north korea', 'oman', 'pakistan', 'palestine',
+                                          'philippines', 'qatar', 'russia', 'saudi arabia', 'singapore', 'south korea',
+                                          'sri lanka', 'syria', 'taiwan', 'tajikistan', 'thailand', 'timor-leste',
+                                          'turkey', 'turkmenistan', 'united arab emirates', 'uzbekistan', 'vietnam',
+                                          'yemen', 'algeria', 'angola', 'benin', 'botswana', 'burkina faso', 'burundi',
+                                          'cabo verde', 'cameroon', 'central african republic', 'chad', 'comoros',
+                                          'congo', 'cote d\'ivoire', 'djibouti', 'egypt', 'equatorial guinea',
+                                          'eritrea', 'eswatini', 'ethiopia', 'gabon', 'gambia', 'ghana', 'guinea',
+                                          'guinea-bissau', 'kenya', 'lesotho', 'liberia', 'libya', 'madagascar',
+                                          'malawi', 'mali', 'mauritania', 'mauritius', 'morocco', 'mozambique',
+                                          'namibia', 'niger', 'nigeria', 'rwanda', 'sao tome and principe', 'senegal',
+                                          'seychelles', 'sierra leone', 'somalia', 'south africa', 'south sudan',
+                                          'sudan', 'tanzania', 'togo', 'tunisia', 'uganda', 'zambia', 'zimbabwe',
+                                          'albania', 'andorra', 'armenia', 'austria', 'azerbaijan', 'belarus',
+                                          'belgium', 'bosnia and herzegovina', 'bulgaria', 'croatia', 'cyprus',
+                                          'czechia', 'denmark', 'estonia', 'finland', 'france', 'georgia', 'germany',
+                                          'greece', 'hungary', 'iceland', 'ireland', 'italy', 'kazakhstan', 'kosovo',
+                                          'latvia', 'liechtenstein', 'lithuania', 'luxembourg', 'malta', 'moldova',
+                                          'monaco', 'montenegro', 'netherlands', 'north macedonia', 'norway', 'poland',
+                                          'portugal', 'romania', 'russia', 'san marino', 'serbia', 'slovakia',
+                                          'slovenia', 'spain', 'sweden', 'switzerland', 'turkey', 'ukraine',
+                                          'united kingdom', 'vatican city', 'antigua and barbuda', 'bahamas',
+                                          'barbados', 'belize', 'canada', 'costa rica', 'cuba', 'dominica',
+                                          'dominican republic', 'el salvador', 'grenada', 'guatemala', 'haiti',
+                                          'honduras', 'jamaica', 'mexico', 'nicaragua', 'panama',
+                                          'saint kitts and nevis', 'saint lucia', 'saint vincent and the grenadines',
+                                          'trinidad and tobago', 'united states of america', 'australia',
+                                          'papua new guinea', 'new zeland', 'fiji', 'solomon islands',
+                                          'micronesia', 'vanuatu', 'samoa', 'kiribati', 'tonga', 'marshall islands',
+                                          'palau',
+                                          'tuvalu', 'nauru', 'argentina', 'bolivia', 'brazil', 'chile', 'colombia',
+                                          'ecuador', 'guyana', 'paraguay', 'peru', 'suriname', 'uruguay', 'venezuela']
+            around_the_world_countries_dict = {'afghanistan':'kabul', 'armenia':'yerevan', 'azerbaijan':'baku', 'bahrain':'manama',
+                              'bangladesh':'dhaka', 'bhutan':'thimphu', 'brunei':'bandar seri begawan', 'cambodia':'phnom penh',
+                              'china':'beijing', 'cyprus':'Nicosia', 'georgia':'tbilisi', 'india':'new delhi', 'indonesia':'jakarta',
+                              'iran':'tehran', 'iraq':'baghdad', 'israel':'jerusalem', 'japan':'tokyo', 'jordan':'amman', 'kazakhstan':'nur-sultan',
+                              'kuwait':'kuwait city', 'kyrgyzstan':'bishkek', 'laos':'vientiane', 'lebanon':'beirut', 'malaysia':'kuala lumpur',
+                              'maldives':'male', 'mongolia':'ulaanbaatar', 'myanmar':'naypyidaw', 'nepal':'kathmandu',
+                              'north korea':'pyongyang', 'oman':'muscat', 'pakistan':'islamabad', 'palestine':'jerusalem',
+                              'philippines':'manila', 'qatar':'doha', 'russia':'moscow', 'saudi arabia':'riyadh',
+                              'singapore':'singapore', 'south korea':'seoul', 'sri lanka':'sri jayawardenepura kotte',
+                              'syria':'damascus', 'taiwan':'taipei', 'tajikistan':'dushanbe', 'thailand':'bangkok',
+                              'timor-leste':'dili', 'turkey':'ankara', 'turkmenistan':'ashgabat', 'united arab emirates':'abu dhabi',
+                              'uzbekistan':'tashkent', 'vietnam':'hanoi', 'yemen':'sanaa','algeria':'algiers', 'angola':'luanda', 'benin':'porto-novo', 'botswana':'gaborone', 'burkina faso':'ouagadougou', 'burundi':'gitega', 'cabo verde':'praia',
+                              'cameroon':'yaounde', 'central african republic':'bangui', 'chad':'n\'djamena', 'comoros':'moroni', 'congo':'kinshasa', 'cote d\'ivoire':'yamoussoukro',
+                              'djibouti':'djibouti', 'egypt':'cairo', 'equatorial guinea':'malabo', 'eritrea':'asmara', 'eswatini':'lobamba ', 'ethiopia':'addis ababa', 'gabon':'libreville',
+                              'gambia':'banjul', 'ghana':'accra', 'guinea':'conakry', 'guinea-bissau':'bissau', 'kenya':'nairobi', 'lesotho':'maseru', 'liberia':'monrovia', 'libya':'tripoli',
+                              'madagascar':'antananarivo', 'malawi':'lilongwe', 'mali':'bamako', 'mauritania':'nouakchott', 'mauritius':'port louis', 'morocco':'rabat', 'mozambique':'maputo',
+                              'namibia':'windhoek', 'niger':'niamey', 'nigeria':'abuja', 'rwanda':'kigali', 'sao tome and principe':'sao tome', 'senegal':'dakar',
+                              'seychelles':'victoria', 'sierra leone':'freetown', 'somalia':'mogadishu', 'south africa':'cape town', 'south sudan':'juba', 'sudan':'khartoum',
+                              'tanzania':'dodoma', 'togo':'lome', 'tunisia':'tunis', 'uganda':'kampala', 'zambia':'lusaka', 'zimbabwe':'harare', 'albania':'tirana', 'andorra':'andorra la vella', 'armenia':'yerevan', 'austria':'vienna', 'azerbaijan':'baku', 'belarus':'minsk', 'belgium':'brussels',
+                                'bosnia and herzegovina':'sarajevo', 'bulgaria':'sofia', 'croatia':'zagreb', 'cyprus':'nicosia', 'czechia':'prague', 'denmark':'copenhagen',
+                                'estonia':'tallinn', 'finland':'helsinki', 'france':'paris', 'georgia':'tbilisi', 'germany':'berlin', 'greece':'athens', 'hungary':'budapest', 'iceland':'reykjavik',
+                                'ireland':'dublin', 'italy':'rome', 'kazakhstan':'nur-sultan', 'kosovo':'pristina', 'latvia':'riga', 'liechtenstein':'vaduz', 'lithuania':'vilnius',
+                                'luxembourg':'luxembourg', 'malta':'valletta', 'moldova':'chisinau', 'monaco':'monaco', 'montenegro':'podgorica', 'netherlands':'amsterdam',
+                                'north macedonia':'skopje', 'norway':'oslo', 'poland':'', 'portugal':'warsaw', 'romania':'bucharest', 'russia':'moscow', 'san marino':'san marino',
+                                'serbia':'belgrade', 'slovakia':'bratislava', 'slovenia':'ljubljana', 'spain':'madrid', 'sweden':'stockholm', 'switzerland':'bern', 'turkey':'ankara', 'ukraine':'kiev',
+                                'united kingdom':'london', 'vatican city':'vatican city','antigua and barbuda':'saint john\'s', 'bahamas':'nassau', 'barbados':'bridgetown', 'belize':'belmopan', 'canada':'ottawa', 'costa rica':'san jose',
+                                       'cuba':'havana', 'dominica':'roseau', 'dominican republic':'santo domingo', 'el salvador':'san salvador', 'grenada':'saint george\'s', 'guatemala':'guatemala city',
+                                       'haiti':'port-au-prince', 'honduras':'tegucigalpa', 'jamaica':'kingston', 'mexico':'mexico city', 'nicaragua':'managua', 'panama':'panama city',
+                                       'saint kitts and nevis':'basseterre', 'saint lucia':'castries', 'saint vincent and the grenadines':'kingstown',
+                                       'trinidad and tobago':'port of spain', 'united states of america':'washington', 'australia':'canberra', 'papua new guinea':'port moresby', 'new zeland':'wellington', 'fiji':'suva', 'solomon islands':'honiara',
+                                 'micronesia':'palikir', 'vanuatu':'port vila', 'samoa':'apia', 'kiribati':'tarawa', 'tonga':'nuku alofa', 'marshall islands':'majuro', 'palau':'ngerulmud',
+                                 'tuvalu':'funafuti', 'nauru':'yaren district', 'argentina': 'buenos aires', 'bolivia': 'la paz', 'brazil': 'brasilia',
+                                            'chile': 'santiago', 'colombia': 'bogota', 'ecuador': 'quito', 'guyana':
+                                            'georgetown', 'paraguay': 'asuncion', 'peru': 'lima', 'suriname':
+                                            'paramaribo', 'uruguay': 'montevideo', 'venezuela': 'caracas'}
+            total_number_of_capitals = len(around_the_world_countries)
+            name_the_capitals_main_logic(around_the_world_countries, around_the_world_countries_dict, total_number_of_capitals, fortune_cookies)
