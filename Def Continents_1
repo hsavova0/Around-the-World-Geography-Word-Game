@@ -166,3 +166,46 @@ def continents_1():
                                             'paramaribo', 'uruguay': 'montevideo', 'venezuela': 'caracas'}
             total_number_of_capitals = len(around_the_world_countries)
             name_the_capitals_main_logic(around_the_world_countries, around_the_world_countries_dict, total_number_of_capitals, fortune_cookies)
+             # Here is constructed the screen connected with button_countries from the main window.
+    # The buttons has been made functional with the def countries.
+    HEIGHT_Continents_1 = 700
+    WIDTH_Continents_1 = 2000
+    master_continents_1 = tk.Toplevel()
+    canvas_continents_1 = tk.Canvas(master_continents_1, height=HEIGHT_Continents_1, width=WIDTH_Continents_1)
+    canvas_continents_1.pack()
+    frame_continents_1 = tk.Frame(master_continents_1, bg='#D2DAF4')
+    frame_continents_1.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+    # Labels
+    label_welcome_text_countries_1 = tk.Label(frame_continents_1, text='Welcome to the continents page!', width=30,
+                                              font=18)
+    label_welcome_text_countries_1.place(x=500, y=50)
+    label_guess_the_capitals = tk.Label(frame_continents_1, text='Choose a continent to guess it\'s capitals.',
+                                        width=40,
+                                        font=18)
+    label_guess_the_capitals.place(x=450, y=100)
+    # Buttons
+    button_asia_1 = tk.Button(frame_continents_1, text='Asia', bg='white', fg='grey', bd=20, width=15, font=18,
+                              command=lambda: countries_1('Asia'))
+    button_asia_1.place(x=300, y=200)
+
+    button_africa_1 = tk.Button(frame_continents_1, text='Africa', bg='white', fg='grey', bd=20, width=15, font=18,
+                                command=lambda: countries_1('Africa'))
+    button_africa_1.place(x=300, y=300)
+    button_europe_1 = tk.Button(frame_continents_1, text='Europe', bg='white', fg='grey', bd=20, width=15, font=18,
+                                command=lambda: countries_1('Europe'))
+    button_europe_1.place(x=300, y=400)
+    button_north_america_1 = tk.Button(frame_continents_1, text='North America', bg='white', fg='grey', bd=20, width=15,
+                                       font=18,
+                                       command=lambda: countries_1('North America'))
+    button_north_america_1.place(x=800, y=200)
+    button_oceania_1 = tk.Button(frame_continents_1, text='Oceania', bg='white', fg='grey', bd=20, width=15, font=18,
+                                 command=lambda: countries_1('Oceania'))
+    button_oceania_1.place(x=800, y=300)
+    button_south_america_1 = tk.Button(frame_continents_1, text='South America', bg='white', fg='grey', bd=20, width=15,
+                                       font=18,
+                                       command=lambda: countries_1('South America'))
+    button_south_america_1.place(x=800, y=400)
+    button_around_the_world_1 = tk.Button(frame_continents_1, text='Around the World', bg='white', fg='grey', bd=20,
+                                          width=15, font=18, command=lambda: countries_1('Around the World'))
+    button_around_the_world_1.place(x=550, y=300)
+    master_continents_1.mainloop()
