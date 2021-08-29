@@ -1,0 +1,134 @@
+def continents():
+    def countries(which_button):
+        if which_button == 'Asia':
+            asia_countries = ['afghanistan', 'armenia', 'azerbaijan', 'bahrain', 'bangladesh', 'bhutan', 'brunei',
+                              'cambodia', 'china', 'cyprus', 'georgia', 'india', 'indonesia', 'iran', 'iraq', 'israel',
+                              'japan', 'jordan', 'kazakhstan', 'kuwait', 'kyrgyzstan', 'laos', 'lebanon', 'malaysia',
+                              'maldives', 'mongolia', 'myanmar', 'nepal', 'north korea', 'oman', 'pakistan',
+                              'palestine', 'philippines', 'qatar', 'russia', 'saudi arabia', 'singapore', 'south korea',
+                              'sri lanka', 'syria', 'taiwan', 'tajikistan', 'thailand', 'timor-leste', 'turkey',
+                              'turkmenistan', 'united arab emirates', 'uzbekistan', 'vietnam', 'yemen']
+            total_number_of_countries = len(asia_countries)
+            name_the_countries_main_logic(asia_countries, total_number_of_countries, fortune_cookies)
+        elif which_button == 'Africa':
+            africa_countries = ['algeria', 'angola', 'benin', 'botswana', 'burkina faso', 'burundi', 'cabo verde',
+                                'cameroon', 'central african republic', 'chad', 'comoros', 'congo', 'cote d\'ivoire',
+                                'djibouti', 'egypt', 'equatorial guinea', 'eritrea', 'eswatini', 'ethiopia', 'gabon',
+                                'gambia', 'ghana', 'guinea', 'guinea-bissau', 'kenya', 'lesotho', 'liberia', 'libya',
+                                'madagascar', 'malawi', 'mali', 'mauritania', 'mauritius', 'morocco', 'mozambique',
+                                'namibia', 'niger', 'nigeria', 'rwanda', 'sao tome and principe', 'senegal',
+                                'seychelles', 'sierra leone', 'somalia', 'south africa', 'south sudan', 'sudan',
+                                'tanzania', 'togo', 'tunisia', 'uganda', 'zambia', 'zimbabwe']
+            total_number_of_countries = len(africa_countries)
+            name_the_countries_main_logic(africa_countries, total_number_of_countries, fortune_cookies)
+        elif which_button == 'Europe':
+            europe_countries = ['albania', 'andorra', 'armenia', 'austria', 'azerbaijan', 'belarus', 'belgium',
+                                'bosnia and herzegovina', 'bulgaria', 'croatia', 'cyprus', 'czechia', 'denmark',
+                                'estonia', 'finland', 'france', 'georgia', 'germany', 'greece', 'hungary', 'iceland',
+                                'ireland', 'italy', 'kazakhstan', 'kosovo', 'latvia', 'liechtenstein', 'lithuania',
+                                'luxembourg', 'malta', 'moldova', 'monaco', 'montenegro', 'netherlands',
+                                'north macedonia', 'norway', 'poland', 'portugal', 'romania', 'russia', 'san marino',
+                                'serbia', 'slovakia', 'slovenia', 'spain', 'sweden', 'switzerland', 'turkey', 'ukraine',
+                                'united kingdom', 'vatican city']
+            total_number_of_countries = len(europe_countries)
+            name_the_countries_main_logic(europe_countries, total_number_of_countries, fortune_cookies)
+        elif which_button == 'North America':
+            north_america_countries = ['antigua and barbuda', 'bahamas', 'barbados', 'belize', 'canada', 'costa rica',
+                                       'cuba', 'dominica', 'dominican republic', 'el salvador', 'grenada', 'guatemala',
+                                       'haiti', 'honduras', 'jamaica', 'mexico', 'nicaragua', 'panama',
+                                       'saint kitts and nevis', 'saint lucia', 'saint vincent and the grenadines',
+                                       'trinidad and tobago', 'united states of america']
+            total_number_of_countries = len(north_america_countries)
+            name_the_countries_main_logic(north_america_countries, total_number_of_countries, fortune_cookies)
+        elif which_button == 'Oceania':
+            oceania_countries = ['australia', 'papua new guinea', 'new zeland', 'fiji', 'solomon islands',
+                                 'micronesia', 'vanuatu', 'samoa', 'kiribati', 'tonga', 'marshall islands', 'palau',
+                                 'tuvalu', 'nauru']
+            total_number_of_countries = len(oceania_countries)
+            name_the_countries_main_logic(oceania_countries, total_number_of_countries, fortune_cookies)
+        elif which_button == 'South America':
+            south_america_countries = ['argentina', 'bolivia', 'brazil', 'chile', 'colombia', 'ecuador', 'guyana',
+                                       'paraguay', 'peru', 'suriname', 'uruguay', 'venezuela']
+            total_number_of_countries = len(south_america_countries)
+            name_the_countries_main_logic(south_america_countries, total_number_of_countries, fortune_cookies)
+        elif which_button == 'Around the World':
+            around_the_world_countries = ['afghanistan', 'armenia', 'azerbaijan', 'bahrain', 'bangladesh', 'bhutan',
+                                          'brunei', 'cambodia', 'china', 'cyprus', 'georgia', 'india', 'indonesia',
+                                          'iran', 'iraq', 'israel', 'japan', 'jordan', 'kazakhstan', 'kuwait',
+                                          'kyrgyzstan', 'laos', 'lebanon', 'malaysia', 'maldives', 'mongolia',
+                                          'myanmar', 'nepal', 'north korea', 'oman', 'pakistan', 'palestine',
+                                          'philippines', 'qatar', 'russia', 'saudi arabia', 'singapore', 'south korea',
+                                          'sri lanka', 'syria', 'taiwan', 'tajikistan', 'thailand', 'timor-leste',
+                                          'turkey', 'turkmenistan', 'united arab emirates', 'uzbekistan', 'vietnam',
+                                          'yemen', 'algeria', 'angola', 'benin', 'botswana', 'burkina faso', 'burundi',
+                                          'cabo verde', 'cameroon', 'central african republic', 'chad', 'comoros',
+                                          'congo', 'cote d\'ivoire', 'djibouti', 'egypt', 'equatorial guinea',
+                                          'eritrea', 'eswatini', 'ethiopia', 'gabon', 'gambia', 'ghana', 'guinea',
+                                          'guinea-bissau', 'kenya', 'lesotho', 'liberia', 'libya', 'madagascar',
+                                          'malawi', 'mali', 'mauritania', 'mauritius', 'morocco', 'mozambique',
+                                          'namibia', 'niger', 'nigeria', 'rwanda', 'sao tome and principe', 'senegal',
+                                          'seychelles', 'sierra leone', 'somalia', 'south africa', 'south sudan',
+                                          'sudan', 'tanzania', 'togo', 'tunisia', 'uganda', 'zambia', 'zimbabwe',
+                                          'albania', 'andorra', 'armenia', 'austria', 'azerbaijan', 'belarus',
+                                          'belgium', 'bosnia and herzegovina', 'bulgaria', 'croatia', 'cyprus',
+                                          'czechia', 'denmark', 'estonia', 'finland', 'france', 'georgia', 'germany',
+                                          'greece', 'hungary', 'iceland', 'ireland', 'italy', 'kazakhstan', 'kosovo',
+                                          'latvia', 'liechtenstein', 'lithuania', 'luxembourg', 'malta', 'moldova',
+                                          'monaco', 'montenegro', 'netherlands', 'north macedonia', 'norway', 'poland',
+                                          'portugal', 'romania', 'russia', 'san marino', 'serbia', 'slovakia',
+                                          'slovenia', 'spain', 'sweden', 'switzerland', 'turkey', 'ukraine',
+                                          'united kingdom', 'vatican city', 'antigua and barbuda', 'bahamas',
+                                          'barbados', 'belize', 'canada', 'costa rica', 'cuba', 'dominica',
+                                          'dominican republic', 'el salvador', 'grenada', 'guatemala', 'haiti',
+                                          'honduras', 'jamaica', 'mexico', 'nicaragua', 'panama',
+                                          'saint kitts and nevis', 'saint lucia', 'saint vincent and the grenadines',
+                                          'trinidad and tobago', 'united states of america', 'australia',
+                                          'papua new guinea', 'new zeland', 'fiji', 'solomon islands',
+                                          'micronesia', 'vanuatu', 'samoa', 'kiribati', 'tonga', 'marshall islands',
+                                          'palau',
+                                          'tuvalu', 'nauru', 'argentina', 'bolivia', 'brazil', 'chile', 'colombia',
+                                          'ecuador', 'guyana', 'paraguay', 'peru', 'suriname', 'uruguay', 'venezuela']
+            total_number_of_countries = len(around_the_world_countries)
+            name_the_countries_main_logic(around_the_world_countries, total_number_of_countries, fortune_cookies)
+
+    # Here is constructed the screen connected with button_countries from the main window.
+    # The buttons has been made functional with the def countries.
+    HEIGHT_Continents = 700
+    WIDTH_Continents = 2000
+    master_continents = tk.Toplevel()
+    canvas_continents = tk.Canvas(master_continents, height=HEIGHT_Continents, width=WIDTH_Continents)
+    canvas_continents.pack()
+    frame_continents = tk.Frame(master_continents, bg='#D2DAF4')
+    frame_continents.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+    # Labels
+    label_welcome_text_countries = tk.Label(frame_continents, text='Welcome to the continents page!', width=30, font=18)
+    label_welcome_text_countries.place(x=500, y=50)
+    label_choose_the_country = tk.Label(frame_continents, text='Choose a continent to guess it\'s countries.', width=40,
+                                        font=18)
+    label_choose_the_country.place(x=450, y=100)
+    # Buttons
+    button_asia = tk.Button(frame_continents, text='Asia', bg='white', fg='grey', bd=20, width=15, font=18,
+                            command=lambda: countries('Asia'))
+    button_asia.place(x=300, y=200)
+
+    button_africa = tk.Button(frame_continents, text='Africa', bg='white', fg='grey', bd=20, width=15, font=18,
+                              command=lambda: countries('Africa'))
+    button_africa.place(x=300, y=300)
+    button_europe = tk.Button(frame_continents, text='Europe', bg='white', fg='grey', bd=20, width=15, font=18,
+                              command=lambda: countries('Europe'))
+    button_europe.place(x=300, y=400)
+    button_north_america = tk.Button(frame_continents, text='North America', bg='white', fg='grey', bd=20, width=15,
+                                     font=18,
+                                     command=lambda: countries('North America'))
+    button_north_america.place(x=800, y=200)
+    button_oceania = tk.Button(frame_continents, text='Oceania', bg='white', fg='grey', bd=20, width=15, font=18,
+                               command=lambda: countries('Oceania'))
+    button_oceania.place(x=800, y=300)
+    button_south_america = tk.Button(frame_continents, text='South America', bg='white', fg='grey', bd=20, width=15,
+                                     font=18,
+                                     command=lambda: countries('South America'))
+    button_south_america.place(x=800, y=400)
+    button_around_the_world = tk.Button(frame_continents, text='Around the World', bg='white', fg='grey', bd=20,
+                                        width=15, font=18, command=lambda: countries('Around the World'))
+    button_around_the_world.place(x=550, y=300)
+    master_continents.mainloop()
