@@ -1,0 +1,663 @@
+import tkinter as tk
+from tkinter import Frame
+import random
+from tkinter import messagebox
+
+HEIGHT = 700
+WIDTH = 2000
+BUTTONS_Y = 300
+
+# This is the main windows
+root = tk.Tk()
+def rules():
+    # Here is constructed the screen where the player will actually play the game.
+    HEIGHT_RULES = 700
+    WIDTH_RULES = 2000
+    # In order to avoid bugs the second screen should always be constructed as a TopLevel.
+    master_rules = tk.Toplevel()
+    canvas_rules = tk.Canvas(master_rules, height=HEIGHT_RULES, width=WIDTH_RULES)
+    canvas_rules.pack()
+    frame_rules = tk.Frame(master_rules, bg='#D2DAF4')
+    frame_rules.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+
+    label_general_rules = tk.Label(master_rules, text='General rules', width=30, font=18)
+    label_general_rules.place(x=200, y=100)
+    label_general_rules_text = tk.Label(master_rules, text='=>The program is case sensitive.\nUse only small letters for the input.', width=30, font=15, justify=tk.LEFT)
+    label_general_rules_text.place(x=200, y=150)
+    label_general_rules_text_1 = tk.Label(master_rules, text='=>You have an unlimited number of \nattempts and unlimited time.', width=30, font=15, justify=tk.LEFT)
+    label_general_rules_text_1.place(x=200, y=210)
+    label_general_rules_text_2 = tk.Label(master_rules, text='=>You will always see the total num-\nber of countries|capitals, how many \nhas been guessed and how many \nare left.',
+                                          width=30, font=15, justify=tk.LEFT)
+    label_general_rules_text_2.place(x=200, y=270)
+    label_general_rules_text_3 = tk.Label(master_rules, text='=>Each time you enter an input, \n the list with the countries will shuffle \n and you will get another task.', width=30, font=15, justify=tk.LEFT)
+    label_general_rules_text_3.place(x=200, y=380)
+    label_general_rules_text_4 = tk.Label(master_rules,
+                                          text='=>The pize for guessing all countries| \n capitals is a fortune cookie.',
+                                          width=30, font=15, justify=tk.LEFT)
+    label_general_rules_text_4.place(x=200, y=470)
+    label_knowledge_countries = tk.Label(master_rules, text='Knowledge about countries', width=30, font=18)
+    label_knowledge_countries.place(x=600, y=100)
+    label_knowledge_countries_1 = tk.Label(master_rules, text='=>The program will shuffle the first \n letters of the countries. \nYou have to guess the countries.', width=30, font=18, justify=tk.LEFT)
+    label_knowledge_countries_1.place(x=600, y=150)
+    label_knowledge_countries_2 = tk.Label(master_rules, text='=>If your answer is incorrect, \n the program will pop up a message \nin which will be included one \nof the possible answers.',
+                                           width=30, font=18, justify=tk.LEFT)
+    label_knowledge_countries_2.place(x=600, y=240)
+    label_knowledge_countries_3 = tk.Label(master_rules,
+                                           text='=>If your answer is correct, \n the program will display a message.',
+                                           width=30, font=18, justify=tk.LEFT)
+    label_knowledge_countries_3.place(x=600, y=350)
+    label_knowledge_countries_4 = tk.Label(master_rules,
+                                           text='=>If the country consists of two \nwords, separated by space, make \nsure to use a single space between \nthem. If they are separated by a "-", \nmake sure there are no spaces \nbefore and after the dash.',
+                                           width=30, font=18, justify=tk.LEFT)
+    label_knowledge_countries_4.place(x=600, y=420)
+    label_knowledge_capitals = tk.Label(master_rules, text='Knowledge about capitals', width=30, font=18)
+    label_knowledge_capitals.place(x=1000, y=100)
+    label_knowledge_capitals_1 = tk.Label(master_rules, text='=>The program will shuffle the \ncountries in the list and will \ndisplay a country. You have to \nguess the capital.', width=30, font=18, justify=tk.LEFT)
+    label_knowledge_capitals_1.place(x=1000, y=150)
+    label_knowledge_capitals_2 = tk.Label(master_rules, text='=>If your answer is incorrect, \n the program will pop up a message \nin which will be included \nthe name of the capital.',
+                                           width=30, font=18, justify=tk.LEFT)
+    label_knowledge_capitals_2.place(x=1000, y=260)
+    label_knowledge_capitals_3 = tk.Label(master_rules,
+                                           text='=>If your answer is correct, \n the program will display a message.',
+                                           width=30, font=18, justify=tk.LEFT)
+    label_knowledge_capitals_3.place(x=1000, y=370)
+    label_knowledge_capitals_4 = tk.Label(master_rules,
+                                           text='=>If the capital consists of two \nwords, separated by space, make \nsure to use a single space between \nthem. If they are separated by a "-", \nmake sure there are no spaces \nbefore and after the dash.',
+                                           width=30, font=18, justify=tk.LEFT)
+    label_knowledge_capitals_4.place(x=1000, y=440)
+
+# This is the function where the whole logic of the game has been placed and developed.
+# This function is connected with button_countries from the main window.
+def name_the_countries_main_logic(countries_list, total_num_countries, fortune_dict):
+    # Here is constructed the screen where the player will actually play the game.
+    HEIGHT_COUNTRIES = 700
+    WIDTH_COUNTRIES = 2000
+    # In order to avoid bugs the second screen should always be constructed as a TopLevel.
+    master_countries = tk.Toplevel()
+    canvas_countries = tk.Canvas(master_countries, height=HEIGHT_COUNTRIES, width=WIDTH_COUNTRIES)
+    canvas_countries.pack()
+    frame_countries = tk.Frame(master_countries, bg='#D2DAF4')
+    frame_countries.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+    # the block variable is used to stop the main while cycle in order the player to be able to write the answer
+    # Calls all pending idle tasks, without processing any other events. This can be used to carry out geometry management
+    # and redraw widgets if necessary, without calling any callbacks.
+    block = tk.BooleanVar(root, False)
+    while True:
+        master_countries.update_idletasks()
+        countries_dictionary = {}
+        # With random the list is shuffled each time in the beginning of the while cycle.
+        random.shuffle(countries_list)
+        # With this code the countries_dictionary is constructed each time,
+        # so it can show the accurate number of countries that start with this letter in the list.
+        for letter in range(len(countries_list)):
+            word = countries_list[letter]
+            letter_to_check = word[0]
+            if letter_to_check not in countries_dictionary:
+                countries_dictionary[letter_to_check] = 1
+            else:
+                countries_dictionary[letter_to_check] += 1
+        # Defined variables that has been placed in the labels.
+        first_letter_of_countries = countries_list[0][0]
+        guessed_countries = total_num_countries - len(countries_list)
+        countries_to_guess = total_num_countries - guessed_countries
+        # Labels and placed variables.
+        label_total_num_countries_text = tk.Label(frame_countries, text='Total number of countries:')
+        label_total_num_countries_text.place(x=1000, y=25)
+        label_total_num_countries = tk.Label(frame_countries, text=total_num_countries)
+        label_total_num_countries.place(x=1000, y=50)
+        label_random_letter_countries = tk.Label(frame_countries,
+                                                 text=f'Random Letter: {first_letter_of_countries.upper()}', width=30,
+                                                 font=18)
+        label_random_letter_countries.place(x=350, y=100)
+        label_number_of_countries = tk.Label(frame_countries,
+                                             text=f'Number of countries with this letter: {countries_dictionary[first_letter_of_countries]}',
+                                             width=30, font=18)
+        label_number_of_countries.place(x=350, y=150)
+        label_question_countries = tk.Label(frame_countries, text='Enter your answer here:', width=30, font=18)
+        label_question_countries.place(x=350, y=200)
+        label_countries_to_guess = tk.Label(frame_countries, text=f'Number of countries to guess: {countries_to_guess}')
+        label_countries_to_guess.place(x=1000, y=100)
+        label_number_of_guessed_countries = tk.Label(frame_countries,
+                                                     text=f'Number of guessed countries: {guessed_countries}')
+        label_number_of_guessed_countries.place(x=1000, y=150)
+        entry_country = tk.Entry(master_countries, width=30, font=18)
+        entry_country.place(x=500, y=350)
+        label_answer = tk.Label(frame_countries, text='Your prize will be displayed here', width=100, height=10,
+                                font=12)
+        label_answer.place(x=50, y=350)
+
+        # The aim of this definition is to get the entry data of the player, to check if the country is in the list.
+        # If it is true to print an informative confirmation message.
+        # If it is not true to print an informative message with an error and the correct answer.
+        # The function return the list on which the whole process will be performed until the list length == 0.
+
+        def retrieve_user_input_data():
+            current_input = entry_country.get()
+            entry_country.delete(0, tk.END)
+            block.set(False)
+            if current_input in countries_list and first_letter_of_countries == current_input[0][0]:
+                countries_list.remove(current_input)
+                root.withdraw()
+                messagebox.showinfo('App', f'Correct answer!')
+            else:
+                root.withdraw()
+                messagebox.showinfo('App', f'Oops! Error! The correct answer was {countries_list[0]}')
+            return countries_list
+
+        # It is important that the entry field is defined over the function but the input can be get after the enter button was
+        # clicked. The function is called with a command from the eneter button.
+        button_countries_new_windows = tk.Button(frame_countries, text='Enter', width=10, font=18,
+                                                 command=lambda: retrieve_user_input_data())
+        button_countries_new_windows.place(x=700, y=275)
+        countries_dictionary.clear()
+        block.set(True)
+        root.wait_variable(block)
+        # This block of code is executed once the length of the list reaches 0. It has the following aims:
+        # 1) to change the values accordingly. The while cycle will be braked here, so the labels wont be able to update
+        # unless they has been updated manually. 2) To shuffle the keys of the dictionary of the fortune cookies and to
+        # update the fortune cookies label. 3) To brake the while cycle.
+        if len(countries_list) == 0:
+            guessed_countries = total_num_countries
+            countries_to_guess = 0
+            label_countries_to_guess = tk.Label(frame_countries,
+                                                text=f'Number of countries to guess: {countries_to_guess}')
+            label_countries_to_guess.place(x=1000, y=100)
+            label_number_of_guessed_countries = tk.Label(frame_countries,
+                                                         text=f'Number of guessed countries: {guessed_countries}')
+            label_number_of_guessed_countries.place(x=1000, y=150)
+            keys = list(fortune_dict.keys())
+            random.shuffle(keys)
+            key = keys[0]
+            label_answer = tk.Label(frame_countries, text=f'{key}, \n {fortune_dict[key]}', width=100, height=10,
+                                    font=12)
+            label_answer.place(x=50, y=350)
+            break
+    master_countries.mainloop()
+
+
+# continents() function is connected with button_countries from the main window. It's main function is to place the
+# continent buttons. the buttons has been made functional with the nested function countries(which button). the
+# nested function countries has three aims: 1) to identify which button was clicked;
+# 2) it contains the data that will be used for the main logic of the program;
+# 3) here is called the function that makes the program functional: name_the_countries_main_logic
+
+
+def continents():
+    def countries(which_button):
+        if which_button == 'Asia':
+            asia_countries = ['afghanistan', 'armenia', 'azerbaijan', 'bahrain', 'bangladesh', 'bhutan', 'brunei',
+                              'cambodia', 'china', 'cyprus', 'georgia', 'india', 'indonesia', 'iran', 'iraq', 'israel',
+                              'japan', 'jordan', 'kazakhstan', 'kuwait', 'kyrgyzstan', 'laos', 'lebanon', 'malaysia',
+                              'maldives', 'mongolia', 'myanmar', 'nepal', 'north korea', 'oman', 'pakistan',
+                              'palestine', 'philippines', 'qatar', 'russia', 'saudi arabia', 'singapore', 'south korea',
+                              'sri lanka', 'syria', 'taiwan', 'tajikistan', 'thailand', 'timor-leste', 'turkey',
+                              'turkmenistan', 'united arab emirates', 'uzbekistan', 'vietnam', 'yemen']
+            total_number_of_countries = len(asia_countries)
+            name_the_countries_main_logic(asia_countries, total_number_of_countries, fortune_cookies)
+        elif which_button == 'Africa':
+            africa_countries = ['algeria', 'angola', 'benin', 'botswana', 'burkina faso', 'burundi', 'cabo verde',
+                                'cameroon', 'central african republic', 'chad', 'comoros', 'congo', 'cote d\'ivoire',
+                                'djibouti', 'egypt', 'equatorial guinea', 'eritrea', 'eswatini', 'ethiopia', 'gabon',
+                                'gambia', 'ghana', 'guinea', 'guinea-bissau', 'kenya', 'lesotho', 'liberia', 'libya',
+                                'madagascar', 'malawi', 'mali', 'mauritania', 'mauritius', 'morocco', 'mozambique',
+                                'namibia', 'niger', 'nigeria', 'rwanda', 'sao tome and principe', 'senegal',
+                                'seychelles', 'sierra leone', 'somalia', 'south africa', 'south sudan', 'sudan',
+                                'tanzania', 'togo', 'tunisia', 'uganda', 'zambia', 'zimbabwe']
+            total_number_of_countries = len(africa_countries)
+            name_the_countries_main_logic(africa_countries, total_number_of_countries, fortune_cookies)
+        elif which_button == 'Europe':
+            europe_countries = ['albania', 'andorra', 'armenia', 'austria', 'azerbaijan', 'belarus', 'belgium',
+                                'bosnia and herzegovina', 'bulgaria', 'croatia', 'cyprus', 'czechia', 'denmark',
+                                'estonia', 'finland', 'france', 'georgia', 'germany', 'greece', 'hungary', 'iceland',
+                                'ireland', 'italy', 'kazakhstan', 'kosovo', 'latvia', 'liechtenstein', 'lithuania',
+                                'luxembourg', 'malta', 'moldova', 'monaco', 'montenegro', 'netherlands',
+                                'north macedonia', 'norway', 'poland', 'portugal', 'romania', 'russia', 'san marino',
+                                'serbia', 'slovakia', 'slovenia', 'spain', 'sweden', 'switzerland', 'turkey', 'ukraine',
+                                'united kingdom', 'vatican city']
+            total_number_of_countries = len(europe_countries)
+            name_the_countries_main_logic(europe_countries, total_number_of_countries, fortune_cookies)
+        elif which_button == 'North America':
+            north_america_countries = ['antigua and barbuda', 'bahamas', 'barbados', 'belize', 'canada', 'costa rica',
+                                       'cuba', 'dominica', 'dominican republic', 'el salvador', 'grenada', 'guatemala',
+                                       'haiti', 'honduras', 'jamaica', 'mexico', 'nicaragua', 'panama',
+                                       'saint kitts and nevis', 'saint lucia', 'saint vincent and the grenadines',
+                                       'trinidad and tobago', 'united states of america']
+            total_number_of_countries = len(north_america_countries)
+            name_the_countries_main_logic(north_america_countries, total_number_of_countries, fortune_cookies)
+        elif which_button == 'Oceania':
+            oceania_countries = ['australia', 'papua new guinea', 'new zeland', 'fiji', 'solomon islands',
+                                 'micronesia', 'vanuatu', 'samoa', 'kiribati', 'tonga', 'marshall islands', 'palau',
+                                 'tuvalu', 'nauru']
+            total_number_of_countries = len(oceania_countries)
+            name_the_countries_main_logic(oceania_countries, total_number_of_countries, fortune_cookies)
+        elif which_button == 'South America':
+            south_america_countries = ['argentina', 'bolivia', 'brazil', 'chile', 'colombia', 'ecuador', 'guyana',
+                                       'paraguay', 'peru', 'suriname', 'uruguay', 'venezuela']
+            total_number_of_countries = len(south_america_countries)
+            name_the_countries_main_logic(south_america_countries, total_number_of_countries, fortune_cookies)
+        elif which_button == 'Around the World':
+            around_the_world_countries = ['afghanistan', 'armenia', 'azerbaijan', 'bahrain', 'bangladesh', 'bhutan',
+                                          'brunei', 'cambodia', 'china', 'cyprus', 'georgia', 'india', 'indonesia',
+                                          'iran', 'iraq', 'israel', 'japan', 'jordan', 'kazakhstan', 'kuwait',
+                                          'kyrgyzstan', 'laos', 'lebanon', 'malaysia', 'maldives', 'mongolia',
+                                          'myanmar', 'nepal', 'north korea', 'oman', 'pakistan', 'palestine',
+                                          'philippines', 'qatar', 'russia', 'saudi arabia', 'singapore', 'south korea',
+                                          'sri lanka', 'syria', 'taiwan', 'tajikistan', 'thailand', 'timor-leste',
+                                          'turkey', 'turkmenistan', 'united arab emirates', 'uzbekistan', 'vietnam',
+                                          'yemen', 'algeria', 'angola', 'benin', 'botswana', 'burkina faso', 'burundi',
+                                          'cabo verde', 'cameroon', 'central african republic', 'chad', 'comoros',
+                                          'congo', 'cote d\'ivoire', 'djibouti', 'egypt', 'equatorial guinea',
+                                          'eritrea', 'eswatini', 'ethiopia', 'gabon', 'gambia', 'ghana', 'guinea',
+                                          'guinea-bissau', 'kenya', 'lesotho', 'liberia', 'libya', 'madagascar',
+                                          'malawi', 'mali', 'mauritania', 'mauritius', 'morocco', 'mozambique',
+                                          'namibia', 'niger', 'nigeria', 'rwanda', 'sao tome and principe', 'senegal',
+                                          'seychelles', 'sierra leone', 'somalia', 'south africa', 'south sudan',
+                                          'sudan', 'tanzania', 'togo', 'tunisia', 'uganda', 'zambia', 'zimbabwe',
+                                          'albania', 'andorra', 'armenia', 'austria', 'azerbaijan', 'belarus',
+                                          'belgium', 'bosnia and herzegovina', 'bulgaria', 'croatia', 'cyprus',
+                                          'czechia', 'denmark', 'estonia', 'finland', 'france', 'georgia', 'germany',
+                                          'greece', 'hungary', 'iceland', 'ireland', 'italy', 'kazakhstan', 'kosovo',
+                                          'latvia', 'liechtenstein', 'lithuania', 'luxembourg', 'malta', 'moldova',
+                                          'monaco', 'montenegro', 'netherlands', 'north macedonia', 'norway', 'poland',
+                                          'portugal', 'romania', 'russia', 'san marino', 'serbia', 'slovakia',
+                                          'slovenia', 'spain', 'sweden', 'switzerland', 'turkey', 'ukraine',
+                                          'united kingdom', 'vatican city', 'antigua and barbuda', 'bahamas',
+                                          'barbados', 'belize', 'canada', 'costa rica', 'cuba', 'dominica',
+                                          'dominican republic', 'el salvador', 'grenada', 'guatemala', 'haiti',
+                                          'honduras', 'jamaica', 'mexico', 'nicaragua', 'panama',
+                                          'saint kitts and nevis', 'saint lucia', 'saint vincent and the grenadines',
+                                          'trinidad and tobago', 'united states of america', 'australia',
+                                          'papua new guinea', 'new zeland', 'fiji', 'solomon islands',
+                                          'micronesia', 'vanuatu', 'samoa', 'kiribati', 'tonga', 'marshall islands',
+                                          'palau',
+                                          'tuvalu', 'nauru', 'argentina', 'bolivia', 'brazil', 'chile', 'colombia',
+                                          'ecuador', 'guyana', 'paraguay', 'peru', 'suriname', 'uruguay', 'venezuela']
+            total_number_of_countries = len(around_the_world_countries)
+            name_the_countries_main_logic(around_the_world_countries, total_number_of_countries, fortune_cookies)
+
+    # Here is constructed the screen connected with button_countries from the main window.
+    # The buttons has been made functional with the def countries.
+    HEIGHT_Continents = 700
+    WIDTH_Continents = 2000
+    master_continents = tk.Toplevel()
+    canvas_continents = tk.Canvas(master_continents, height=HEIGHT_Continents, width=WIDTH_Continents)
+    canvas_continents.pack()
+    frame_continents = tk.Frame(master_continents, bg='#D2DAF4')
+    frame_continents.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+    # Labels
+    label_welcome_text_countries = tk.Label(frame_continents, text='Welcome to the continents page!', width=30, font=18)
+    label_welcome_text_countries.place(x=500, y=50)
+    label_choose_the_country = tk.Label(frame_continents, text='Choose a continent to guess it\'s countries.', width=40,
+                                        font=18)
+    label_choose_the_country.place(x=450, y=100)
+    # Buttons
+    button_asia = tk.Button(frame_continents, text='Asia', bg='white', fg='grey', bd=20, width=15, font=18,
+                            command=lambda: countries('Asia'))
+    button_asia.place(x=300, y=200)
+
+    button_africa = tk.Button(frame_continents, text='Africa', bg='white', fg='grey', bd=20, width=15, font=18,
+                              command=lambda: countries('Africa'))
+    button_africa.place(x=300, y=300)
+    button_europe = tk.Button(frame_continents, text='Europe', bg='white', fg='grey', bd=20, width=15, font=18,
+                              command=lambda: countries('Europe'))
+    button_europe.place(x=300, y=400)
+    button_north_america = tk.Button(frame_continents, text='North America', bg='white', fg='grey', bd=20, width=15,
+                                     font=18,
+                                     command=lambda: countries('North America'))
+    button_north_america.place(x=800, y=200)
+    button_oceania = tk.Button(frame_continents, text='Oceania', bg='white', fg='grey', bd=20, width=15, font=18,
+                               command=lambda: countries('Oceania'))
+    button_oceania.place(x=800, y=300)
+    button_south_america = tk.Button(frame_continents, text='South America', bg='white', fg='grey', bd=20, width=15,
+                                     font=18,
+                                     command=lambda: countries('South America'))
+    button_south_america.place(x=800, y=400)
+    button_around_the_world = tk.Button(frame_continents, text='Around the World', bg='white', fg='grey', bd=20,
+                                        width=15, font=18, command=lambda: countries('Around the World'))
+    button_around_the_world.place(x=550, y=300)
+    master_continents.mainloop()
+
+
+def name_the_capitals_main_logic(countries_list, countries_dict, total_num_capitals, fortune_dict):
+    HEIGHT_COUNTRIES_CAPITALS = 700
+    WIDTH_COUNTRIES_CAPITALS = 2000
+    # In order to avoid bugs the second screen should always be constructed as a TopLevel.
+    master_countries_capitals = tk.Toplevel()
+    canvas_countries_capitals = tk.Canvas(master_countries_capitals, height=HEIGHT_COUNTRIES_CAPITALS, width=WIDTH_COUNTRIES_CAPITALS)
+    canvas_countries_capitals.pack()
+    frame_countries_capitals = tk.Frame(master_countries_capitals, bg='#D2DAF4')
+    frame_countries_capitals.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+    block = tk.BooleanVar(root, False)
+    while True:
+        master_countries_capitals.update_idletasks()
+        random.shuffle(countries_list)
+        first_country = countries_list[0]
+        guessed_capitals = total_num_capitals - len(countries_list)
+        capitals_to_guess = total_num_capitals - guessed_capitals
+        label_total_num_countries_text = tk.Label(frame_countries_capitals, text=f'Total number of capitals: {total_num_capitals}')
+        label_total_num_countries_text.place(x=1000, y=25)
+        label_random_country = tk.Label(frame_countries_capitals,
+                                                 text=f'Random country: {first_country.upper()}', width=50,
+                                                 font=18)
+        label_random_country.place(x=250, y=100)
+        label_question_capitals = tk.Label(frame_countries_capitals, text='Write the name of the capital here:', width=35, font=18)
+        label_question_capitals.place(x=325, y=200)
+        label_capitals_to_guess = tk.Label(frame_countries_capitals, text=f'Number of capitals to guess: {capitals_to_guess}')
+        label_capitals_to_guess.place(x=1000, y=100)
+        label_number_of_guessed_capitals = tk.Label(frame_countries_capitals,
+                                                     text=f'Number of guessed capitals: {guessed_capitals}')
+        label_number_of_guessed_capitals.place(x=1000, y=150)
+        entry_capital = tk.Entry(master_countries_capitals, width=30, font=18)
+        entry_capital.place(x=500, y=350)
+        label_answer = tk.Label(frame_countries_capitals, text='Your prize will be displayed here', width=100, height=10,
+                                font=12)
+        label_answer.place(x=50, y=350)
+
+        def retrieve_user_input_data_capitals():
+            current_input_capital = entry_capital.get()
+            entry_capital.delete(0, tk.END)
+            block.set(False)
+            if current_input_capital == countries_dict[first_country]:
+                searched_index = countries_list.index(first_country)
+                countries_list.pop(searched_index)
+                root.withdraw()
+                messagebox.showinfo('App', f'Correct answer!')
+            else:
+                root.withdraw()
+                messagebox.showinfo('App', f'Oops! Error! The correct answer was {countries_dict[first_country]}')
+            return countries_list
+
+        button_capitals_new_windows = tk.Button(frame_countries_capitals, text='Enter', width=10, font=18,
+                                                 command=lambda: retrieve_user_input_data_capitals())
+        button_capitals_new_windows.place(x=700, y=275)
+        block.set(True)
+        root.wait_variable(block)
+        if len(countries_list) == 0:
+            guessed_capitals = total_num_capitals
+            capitals_to_guess = 0
+            label_capitals_to_guess = tk.Label(frame_countries_capitals,
+                                                text=f'Number of countries to guess: {capitals_to_guess}')
+            label_capitals_to_guess.place(x=1000, y=100)
+            label_number_of_guessed_capitals = tk.Label(frame_countries_capitals,
+                                                         text=f'Number of guessed countries: {guessed_capitals}')
+            label_number_of_guessed_capitals.place(x=1000, y=150)
+            keys = list(fortune_dict.keys())
+            random.shuffle(keys)
+            key = keys[0]
+            label_answer = tk.Label(frame_countries_capitals, text=f'{key}, \n {fortune_dict[key]}', width=100, height=10,
+                                    font=12)
+            label_answer.place(x=50, y=350)
+            break
+    master_countries_capitals.mainloop()
+
+
+def continents_1():
+    def countries_1(which_button):
+        if which_button == 'Asia':
+            asia_countries = ['afghanistan', 'armenia', 'azerbaijan', 'bahrain', 'bangladesh', 'bhutan', 'brunei',
+                              'cambodia', 'china', 'cyprus', 'georgia', 'india', 'indonesia', 'iran', 'iraq', 'israel',
+                              'japan', 'jordan', 'kazakhstan', 'kuwait', 'kyrgyzstan', 'laos', 'lebanon', 'malaysia',
+                              'maldives', 'mongolia', 'myanmar', 'nepal', 'north korea', 'oman', 'pakistan',
+                              'palestine', 'philippines', 'qatar', 'russia', 'saudi arabia', 'singapore', 'south korea',
+                              'sri lanka', 'syria', 'taiwan', 'tajikistan', 'thailand', 'timor-leste', 'turkey',
+                              'turkmenistan', 'united arab emirates', 'uzbekistan', 'vietnam', 'yemen']
+            asia_countries_dict = {'afghanistan':'kabul', 'armenia':'yerevan', 'azerbaijan':'baku', 'bahrain':'manama',
+                              'bangladesh':'dhaka', 'bhutan':'thimphu', 'brunei':'bandar seri begawan', 'cambodia':'phnom penh',
+                              'china':'beijing', 'cyprus':'Nicosia', 'georgia':'tbilisi', 'india':'new delhi', 'indonesia':'jakarta',
+                              'iran':'tehran', 'iraq':'baghdad', 'israel':'jerusalem', 'japan':'tokyo', 'jordan':'amman', 'kazakhstan':'nur-sultan',
+                              'kuwait':'kuwait city', 'kyrgyzstan':'bishkek', 'laos':'vientiane', 'lebanon':'beirut', 'malaysia':'kuala lumpur',
+                              'maldives':'male', 'mongolia':'ulaanbaatar', 'myanmar':'naypyidaw', 'nepal':'kathmandu',
+                              'north korea':'pyongyang', 'oman':'muscat', 'pakistan':'islamabad', 'palestine':'jerusalem',
+                              'philippines':'manila', 'qatar':'doha', 'russia':'moscow', 'saudi arabia':'riyadh',
+                              'singapore':'singapore', 'south korea':'seoul', 'sri lanka':'sri jayawardenepura kotte',
+                              'syria':'damascus', 'taiwan':'taipei', 'tajikistan':'dushanbe', 'thailand':'bangkok',
+                              'timor-leste':'dili', 'turkey':'ankara', 'turkmenistan':'ashgabat', 'united arab emirates':'abu dhabi',
+                              'uzbekistan':'tashkent', 'vietnam':'hanoi', 'yemen':'sanaa'}
+            total_number_of_capitals = len(asia_countries)
+            name_the_capitals_main_logic(asia_countries, asia_countries_dict, total_number_of_capitals, fortune_cookies)
+        elif which_button == 'Africa':
+            africa_countries = ['algeria', 'angola', 'benin', 'botswana', 'burkina faso', 'burundi', 'cabo verde',
+                                'cameroon', 'central african republic', 'chad', 'comoros', 'congo', 'cote d\'ivoire',
+                                'djibouti', 'egypt', 'equatorial guinea', 'eritrea', 'eswatini', 'ethiopia', 'gabon',
+                                'gambia', 'ghana', 'guinea', 'guinea-bissau', 'kenya', 'lesotho', 'liberia', 'libya',
+                                'madagascar', 'malawi', 'mali', 'mauritania', 'mauritius', 'morocco', 'mozambique',
+                                'namibia', 'niger', 'nigeria', 'rwanda', 'sao tome and principe', 'senegal',
+                                'seychelles', 'sierra leone', 'somalia', 'south africa', 'south sudan', 'sudan',
+                                'tanzania', 'togo', 'tunisia', 'uganda', 'zambia', 'zimbabwe']
+            africa_countries_dictionary = {'algeria':'algiers', 'angola':'luanda', 'benin':'porto-novo', 'botswana':'gaborone', 'burkina faso':'ouagadougou', 'burundi':'gitega', 'cabo verde':'praia',
+                                'cameroon':'yaounde', 'central african republic':'bangui', 'chad':'n\'djamena', 'comoros':'moroni', 'congo':'kinshasa', 'cote d\'ivoire':'yamoussoukro',
+                                'djibouti':'djibouti', 'egypt':'cairo', 'equatorial guinea':'malabo', 'eritrea':'asmara', 'eswatini':'lobamba ', 'ethiopia':'addis ababa', 'gabon':'libreville',
+                                'gambia':'banjul', 'ghana':'accra', 'guinea':'conakry', 'guinea-bissau':'bissau', 'kenya':'nairobi', 'lesotho':'maseru', 'liberia':'monrovia', 'libya':'tripoli',
+                                'madagascar':'antananarivo', 'malawi':'lilongwe', 'mali':'bamako', 'mauritania':'nouakchott', 'mauritius':'port louis', 'morocco':'rabat', 'mozambique':'maputo',
+                                'namibia':'windhoek', 'niger':'niamey', 'nigeria':'abuja', 'rwanda':'kigali', 'sao tome and principe':'sao tome', 'senegal':'dakar',
+                                'seychelles':'victoria', 'sierra leone':'freetown', 'somalia':'mogadishu', 'south africa':'cape town', 'south sudan':'juba', 'sudan':'khartoum',
+                                'tanzania':'dodoma', 'togo':'lome', 'tunisia':'tunis', 'uganda':'kampala', 'zambia':'lusaka', 'zimbabwe':'harare'}
+            total_number_of_capitals = len(africa_countries)
+            name_the_capitals_main_logic(africa_countries, africa_countries_dictionary, total_number_of_capitals, fortune_cookies)
+        elif which_button == 'Europe':
+            european_countries = ['albania', 'andorra', 'armenia', 'austria', 'azerbaijan', 'belarus', 'belgium',
+                                'bosnia and herzegovina', 'bulgaria', 'croatia', 'cyprus', 'czechia', 'denmark',
+                                'estonia', 'finland', 'france', 'georgia', 'germany', 'greece', 'hungary', 'iceland',
+                                'ireland', 'italy', 'kazakhstan', 'kosovo', 'latvia', 'liechtenstein', 'lithuania',
+                                'luxembourg', 'malta', 'moldova', 'monaco', 'montenegro', 'netherlands',
+                                'north macedonia', 'norway', 'poland', 'portugal', 'romania', 'russia', 'san marino',
+                                'serbia', 'slovakia', 'slovenia', 'spain', 'sweden', 'switzerland', 'turkey', 'ukraine',
+                                'united kingdom', 'vatican city']
+            european_countries_dict = {'albania':'tirana', 'andorra':'andorra la vella', 'armenia':'yerevan', 'austria':'vienna', 'azerbaijan':'baku', 'belarus':'minsk', 'belgium':'brussels',
+                                'bosnia and herzegovina':'sarajevo', 'bulgaria':'sofia', 'croatia':'zagreb', 'cyprus':'nicosia', 'czechia':'prague', 'denmark':'copenhagen',
+                                'estonia':'tallinn', 'finland':'helsinki', 'france':'paris', 'georgia':'tbilisi', 'germany':'berlin', 'greece':'athens', 'hungary':'budapest', 'iceland':'reykjavik',
+                                'ireland':'dublin', 'italy':'rome', 'kazakhstan':'nur-sultan', 'kosovo':'pristina', 'latvia':'riga', 'liechtenstein':'vaduz', 'lithuania':'vilnius',
+                                'luxembourg':'luxembourg', 'malta':'valletta', 'moldova':'chisinau', 'monaco':'monaco', 'montenegro':'podgorica', 'netherlands':'amsterdam',
+                                'north macedonia':'skopje', 'norway':'oslo', 'poland':'', 'portugal':'warsaw', 'romania':'bucharest', 'russia':'moscow', 'san marino':'san marino',
+                                'serbia':'belgrade', 'slovakia':'bratislava', 'slovenia':'ljubljana', 'spain':'madrid', 'sweden':'stockholm', 'switzerland':'bern', 'turkey':'ankara', 'ukraine':'kiev',
+                                'united kingdom':'london', 'vatican city':'vatican city'}
+            total_number_of_capitals = len(european_countries)
+            name_the_capitals_main_logic(european_countries, european_countries_dict, total_number_of_capitals, fortune_cookies)
+        elif which_button == 'North America':
+            north_america_countries = ['antigua and barbuda', 'bahamas', 'barbados', 'belize', 'canada', 'costa rica',
+                                       'cuba', 'dominica', 'dominican republic', 'el salvador', 'grenada', 'guatemala',
+                                       'haiti', 'honduras', 'jamaica', 'mexico', 'nicaragua', 'panama',
+                                       'saint kitts and nevis', 'saint lucia', 'saint vincent and the grenadines',
+                                       'trinidad and tobago', 'united states of america']
+            north_america_countries_dict = {'antigua and barbuda':'saint john\'s', 'bahamas':'nassau', 'barbados':'bridgetown', 'belize':'belmopan', 'canada':'ottawa', 'costa rica':'san jose',
+                                       'cuba':'havana', 'dominica':'roseau', 'dominican republic':'santo domingo', 'el salvador':'san salvador', 'grenada':'saint george\'s', 'guatemala':'guatemala city',
+                                       'haiti':'port-au-prince', 'honduras':'tegucigalpa', 'jamaica':'kingston', 'mexico':'mexico city', 'nicaragua':'managua', 'panama':'panama city',
+                                       'saint kitts and nevis':'basseterre', 'saint lucia':'castries', 'saint vincent and the grenadines':'kingstown',
+                                       'trinidad and tobago':'port of spain', 'united states of america':'washington'}
+            total_number_of_capitals = len(north_america_countries)
+            name_the_capitals_main_logic(north_america_countries, north_america_countries_dict,
+                                         total_number_of_capitals, fortune_cookies)
+        elif which_button == 'Oceania':
+            oceania_countries = ['australia', 'papua new guinea', 'new zeland', 'fiji', 'solomon islands',
+                                 'micronesia', 'vanuatu', 'samoa', 'kiribati', 'tonga', 'marshall islands', 'palau',
+                                 'tuvalu', 'nauru']
+            oceania_countries_dict = {'australia':'canberra', 'papua new guinea':'port moresby', 'new zeland':'wellington', 'fiji':'suva', 'solomon islands':'honiara',
+                                 'micronesia':'palikir', 'vanuatu':'port vila', 'samoa':'apia', 'kiribati':'tarawa', 'tonga':'nuku alofa', 'marshall islands':'majuro', 'palau':'ngerulmud',
+                                 'tuvalu':'funafuti', 'nauru':'yaren district'}
+            total_number_of_capitals = len(oceania_countries)
+            name_the_capitals_main_logic(oceania_countries, oceania_countries_dict, total_number_of_capitals, fortune_cookies)
+        elif which_button == 'South America':
+            south_america_countries = ['argentina', 'bolivia', 'brazil', 'chile', 'colombia', 'ecuador', 'guyana',
+                                       'paraguay', 'peru', 'suriname', 'uruguay', 'venezuela']
+            south_america_countries_dict = {'argentina': 'buenos aires', 'bolivia': 'la paz', 'brazil': 'brasilia',
+                                            'chile': 'santiago', 'colombia': 'bogota', 'ecuador': 'quito', 'guyana':
+                                            'georgetown', 'paraguay': 'asuncion', 'peru': 'lima', 'suriname':
+                                            'paramaribo', 'uruguay': 'montevideo', 'venezuela': 'caracas'}
+            total_number_of_capitals = len(south_america_countries)
+            name_the_capitals_main_logic(south_america_countries, south_america_countries_dict, total_number_of_capitals, fortune_cookies)
+        elif which_button == 'Around the World':
+            around_the_world_countries = ['afghanistan', 'armenia', 'azerbaijan', 'bahrain', 'bangladesh', 'bhutan',
+                                          'brunei', 'cambodia', 'china', 'cyprus', 'georgia', 'india', 'indonesia',
+                                          'iran', 'iraq', 'israel', 'japan', 'jordan', 'kazakhstan', 'kuwait',
+                                          'kyrgyzstan', 'laos', 'lebanon', 'malaysia', 'maldives', 'mongolia',
+                                          'myanmar', 'nepal', 'north korea', 'oman', 'pakistan', 'palestine',
+                                          'philippines', 'qatar', 'russia', 'saudi arabia', 'singapore', 'south korea',
+                                          'sri lanka', 'syria', 'taiwan', 'tajikistan', 'thailand', 'timor-leste',
+                                          'turkey', 'turkmenistan', 'united arab emirates', 'uzbekistan', 'vietnam',
+                                          'yemen', 'algeria', 'angola', 'benin', 'botswana', 'burkina faso', 'burundi',
+                                          'cabo verde', 'cameroon', 'central african republic', 'chad', 'comoros',
+                                          'congo', 'cote d\'ivoire', 'djibouti', 'egypt', 'equatorial guinea',
+                                          'eritrea', 'eswatini', 'ethiopia', 'gabon', 'gambia', 'ghana', 'guinea',
+                                          'guinea-bissau', 'kenya', 'lesotho', 'liberia', 'libya', 'madagascar',
+                                          'malawi', 'mali', 'mauritania', 'mauritius', 'morocco', 'mozambique',
+                                          'namibia', 'niger', 'nigeria', 'rwanda', 'sao tome and principe', 'senegal',
+                                          'seychelles', 'sierra leone', 'somalia', 'south africa', 'south sudan',
+                                          'sudan', 'tanzania', 'togo', 'tunisia', 'uganda', 'zambia', 'zimbabwe',
+                                          'albania', 'andorra', 'armenia', 'austria', 'azerbaijan', 'belarus',
+                                          'belgium', 'bosnia and herzegovina', 'bulgaria', 'croatia', 'cyprus',
+                                          'czechia', 'denmark', 'estonia', 'finland', 'france', 'georgia', 'germany',
+                                          'greece', 'hungary', 'iceland', 'ireland', 'italy', 'kazakhstan', 'kosovo',
+                                          'latvia', 'liechtenstein', 'lithuania', 'luxembourg', 'malta', 'moldova',
+                                          'monaco', 'montenegro', 'netherlands', 'north macedonia', 'norway', 'poland',
+                                          'portugal', 'romania', 'russia', 'san marino', 'serbia', 'slovakia',
+                                          'slovenia', 'spain', 'sweden', 'switzerland', 'turkey', 'ukraine',
+                                          'united kingdom', 'vatican city', 'antigua and barbuda', 'bahamas',
+                                          'barbados', 'belize', 'canada', 'costa rica', 'cuba', 'dominica',
+                                          'dominican republic', 'el salvador', 'grenada', 'guatemala', 'haiti',
+                                          'honduras', 'jamaica', 'mexico', 'nicaragua', 'panama',
+                                          'saint kitts and nevis', 'saint lucia', 'saint vincent and the grenadines',
+                                          'trinidad and tobago', 'united states of america', 'australia',
+                                          'papua new guinea', 'new zeland', 'fiji', 'solomon islands',
+                                          'micronesia', 'vanuatu', 'samoa', 'kiribati', 'tonga', 'marshall islands',
+                                          'palau',
+                                          'tuvalu', 'nauru', 'argentina', 'bolivia', 'brazil', 'chile', 'colombia',
+                                          'ecuador', 'guyana', 'paraguay', 'peru', 'suriname', 'uruguay', 'venezuela']
+            around_the_world_countries_dict = {'afghanistan':'kabul', 'armenia':'yerevan', 'azerbaijan':'baku', 'bahrain':'manama',
+                              'bangladesh':'dhaka', 'bhutan':'thimphu', 'brunei':'bandar seri begawan', 'cambodia':'phnom penh',
+                              'china':'beijing', 'cyprus':'Nicosia', 'georgia':'tbilisi', 'india':'new delhi', 'indonesia':'jakarta',
+                              'iran':'tehran', 'iraq':'baghdad', 'israel':'jerusalem', 'japan':'tokyo', 'jordan':'amman', 'kazakhstan':'nur-sultan',
+                              'kuwait':'kuwait city', 'kyrgyzstan':'bishkek', 'laos':'vientiane', 'lebanon':'beirut', 'malaysia':'kuala lumpur',
+                              'maldives':'male', 'mongolia':'ulaanbaatar', 'myanmar':'naypyidaw', 'nepal':'kathmandu',
+                              'north korea':'pyongyang', 'oman':'muscat', 'pakistan':'islamabad', 'palestine':'jerusalem',
+                              'philippines':'manila', 'qatar':'doha', 'russia':'moscow', 'saudi arabia':'riyadh',
+                              'singapore':'singapore', 'south korea':'seoul', 'sri lanka':'sri jayawardenepura kotte',
+                              'syria':'damascus', 'taiwan':'taipei', 'tajikistan':'dushanbe', 'thailand':'bangkok',
+                              'timor-leste':'dili', 'turkey':'ankara', 'turkmenistan':'ashgabat', 'united arab emirates':'abu dhabi',
+                              'uzbekistan':'tashkent', 'vietnam':'hanoi', 'yemen':'sanaa','algeria':'algiers', 'angola':'luanda', 'benin':'porto-novo', 'botswana':'gaborone', 'burkina faso':'ouagadougou', 'burundi':'gitega', 'cabo verde':'praia',
+                              'cameroon':'yaounde', 'central african republic':'bangui', 'chad':'n\'djamena', 'comoros':'moroni', 'congo':'kinshasa', 'cote d\'ivoire':'yamoussoukro',
+                              'djibouti':'djibouti', 'egypt':'cairo', 'equatorial guinea':'malabo', 'eritrea':'asmara', 'eswatini':'lobamba ', 'ethiopia':'addis ababa', 'gabon':'libreville',
+                              'gambia':'banjul', 'ghana':'accra', 'guinea':'conakry', 'guinea-bissau':'bissau', 'kenya':'nairobi', 'lesotho':'maseru', 'liberia':'monrovia', 'libya':'tripoli',
+                              'madagascar':'antananarivo', 'malawi':'lilongwe', 'mali':'bamako', 'mauritania':'nouakchott', 'mauritius':'port louis', 'morocco':'rabat', 'mozambique':'maputo',
+                              'namibia':'windhoek', 'niger':'niamey', 'nigeria':'abuja', 'rwanda':'kigali', 'sao tome and principe':'sao tome', 'senegal':'dakar',
+                              'seychelles':'victoria', 'sierra leone':'freetown', 'somalia':'mogadishu', 'south africa':'cape town', 'south sudan':'juba', 'sudan':'khartoum',
+                              'tanzania':'dodoma', 'togo':'lome', 'tunisia':'tunis', 'uganda':'kampala', 'zambia':'lusaka', 'zimbabwe':'harare', 'albania':'tirana', 'andorra':'andorra la vella', 'armenia':'yerevan', 'austria':'vienna', 'azerbaijan':'baku', 'belarus':'minsk', 'belgium':'brussels',
+                                'bosnia and herzegovina':'sarajevo', 'bulgaria':'sofia', 'croatia':'zagreb', 'cyprus':'nicosia', 'czechia':'prague', 'denmark':'copenhagen',
+                                'estonia':'tallinn', 'finland':'helsinki', 'france':'paris', 'georgia':'tbilisi', 'germany':'berlin', 'greece':'athens', 'hungary':'budapest', 'iceland':'reykjavik',
+                                'ireland':'dublin', 'italy':'rome', 'kazakhstan':'nur-sultan', 'kosovo':'pristina', 'latvia':'riga', 'liechtenstein':'vaduz', 'lithuania':'vilnius',
+                                'luxembourg':'luxembourg', 'malta':'valletta', 'moldova':'chisinau', 'monaco':'monaco', 'montenegro':'podgorica', 'netherlands':'amsterdam',
+                                'north macedonia':'skopje', 'norway':'oslo', 'poland':'', 'portugal':'warsaw', 'romania':'bucharest', 'russia':'moscow', 'san marino':'san marino',
+                                'serbia':'belgrade', 'slovakia':'bratislava', 'slovenia':'ljubljana', 'spain':'madrid', 'sweden':'stockholm', 'switzerland':'bern', 'turkey':'ankara', 'ukraine':'kiev',
+                                'united kingdom':'london', 'vatican city':'vatican city','antigua and barbuda':'saint john\'s', 'bahamas':'nassau', 'barbados':'bridgetown', 'belize':'belmopan', 'canada':'ottawa', 'costa rica':'san jose',
+                                       'cuba':'havana', 'dominica':'roseau', 'dominican republic':'santo domingo', 'el salvador':'san salvador', 'grenada':'saint george\'s', 'guatemala':'guatemala city',
+                                       'haiti':'port-au-prince', 'honduras':'tegucigalpa', 'jamaica':'kingston', 'mexico':'mexico city', 'nicaragua':'managua', 'panama':'panama city',
+                                       'saint kitts and nevis':'basseterre', 'saint lucia':'castries', 'saint vincent and the grenadines':'kingstown',
+                                       'trinidad and tobago':'port of spain', 'united states of america':'washington', 'australia':'canberra', 'papua new guinea':'port moresby', 'new zeland':'wellington', 'fiji':'suva', 'solomon islands':'honiara',
+                                 'micronesia':'palikir', 'vanuatu':'port vila', 'samoa':'apia', 'kiribati':'tarawa', 'tonga':'nuku alofa', 'marshall islands':'majuro', 'palau':'ngerulmud',
+                                 'tuvalu':'funafuti', 'nauru':'yaren district', 'argentina': 'buenos aires', 'bolivia': 'la paz', 'brazil': 'brasilia',
+                                            'chile': 'santiago', 'colombia': 'bogota', 'ecuador': 'quito', 'guyana':
+                                            'georgetown', 'paraguay': 'asuncion', 'peru': 'lima', 'suriname':
+                                            'paramaribo', 'uruguay': 'montevideo', 'venezuela': 'caracas'}
+            total_number_of_capitals = len(around_the_world_countries)
+            name_the_capitals_main_logic(around_the_world_countries, around_the_world_countries_dict, total_number_of_capitals, fortune_cookies)
+
+    # Here is constructed the screen connected with button_countries from the main window.
+    # The buttons has been made functional with the def countries.
+    HEIGHT_Continents_1 = 700
+    WIDTH_Continents_1 = 2000
+    master_continents_1 = tk.Toplevel()
+    canvas_continents_1 = tk.Canvas(master_continents_1, height=HEIGHT_Continents_1, width=WIDTH_Continents_1)
+    canvas_continents_1.pack()
+    frame_continents_1 = tk.Frame(master_continents_1, bg='#D2DAF4')
+    frame_continents_1.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+    # Labels
+    label_welcome_text_countries_1 = tk.Label(frame_continents_1, text='Welcome to the continents page!', width=30,
+                                              font=18)
+    label_welcome_text_countries_1.place(x=500, y=50)
+    label_guess_the_capitals = tk.Label(frame_continents_1, text='Choose a continent to guess it\'s capitals.',
+                                        width=40,
+                                        font=18)
+    label_guess_the_capitals.place(x=450, y=100)
+    # Buttons
+    button_asia_1 = tk.Button(frame_continents_1, text='Asia', bg='white', fg='grey', bd=20, width=15, font=18,
+                              command=lambda: countries_1('Asia'))
+    button_asia_1.place(x=300, y=200)
+
+    button_africa_1 = tk.Button(frame_continents_1, text='Africa', bg='white', fg='grey', bd=20, width=15, font=18,
+                                command=lambda: countries_1('Africa'))
+    button_africa_1.place(x=300, y=300)
+    button_europe_1 = tk.Button(frame_continents_1, text='Europe', bg='white', fg='grey', bd=20, width=15, font=18,
+                                command=lambda: countries_1('Europe'))
+    button_europe_1.place(x=300, y=400)
+    button_north_america_1 = tk.Button(frame_continents_1, text='North America', bg='white', fg='grey', bd=20, width=15,
+                                       font=18,
+                                       command=lambda: countries_1('North America'))
+    button_north_america_1.place(x=800, y=200)
+    button_oceania_1 = tk.Button(frame_continents_1, text='Oceania', bg='white', fg='grey', bd=20, width=15, font=18,
+                                 command=lambda: countries_1('Oceania'))
+    button_oceania_1.place(x=800, y=300)
+    button_south_america_1 = tk.Button(frame_continents_1, text='South America', bg='white', fg='grey', bd=20, width=15,
+                                       font=18,
+                                       command=lambda: countries_1('South America'))
+    button_south_america_1.place(x=800, y=400)
+    button_around_the_world_1 = tk.Button(frame_continents_1, text='Around the World', bg='white', fg='grey', bd=20,
+                                          width=15, font=18, command=lambda: countries_1('Around the World'))
+    button_around_the_world_1.place(x=550, y=300)
+    master_continents_1.mainloop()
+
+
+# This is the structure of the main window.
+canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
+canvas.pack()
+frame: Frame = tk.Frame(root)
+frame.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+# Background image main window.
+background_image_first_screen_open = open(file='clouds.PNG')
+background_image_first_screen = tk.PhotoImage(file='clouds.PNG')
+# Labels of the main window.
+label_background = tk.Label(frame, image=background_image_first_screen)
+label_background.place(x=0, y=0)
+# Buttons of the main window. The buttons has been made functional with the continents() function.
+button_countries = tk.Button(frame, text='Name the Countries', bg='white', fg='grey', bd=20, width=15, font=18,
+                             command=lambda: continents())
+button_countries.place(x=325, y=BUTTONS_Y)
+button_capitals = tk.Button(frame, text='Name the Capitals', bg='white', fg='grey', bd=20, width=15, font=18,
+                            command=lambda: continents_1())
+button_capitals.place(x=875, y=BUTTONS_Y)
+button_rules = tk.Button(frame, text='Rules', bg='white', fg='grey', bd=20, width=5, font=1, command=lambda : rules())
+button_rules.place(x=1125, y=20)
+fortune_cookies = {'The unexamined life is not worth living': 'Socrates', 'Entities should not be multiplied '
+                                                                          'unnecessarily': 'William of Ockham',
+                   'The life of man (in a state of nature) is solitary, poor, nasty, brutish, and short': 'Thomas '
+                                                                                                          'Hobbes',
+                   'He who thinks great thoughts, often makes great errors': 'Martin Heidegger',
+                   'We live in the best of all possible worlds': 'Leibniz', 'What is rational is actual and what '
+                                                                            'is actual is rational': 'Hegel',
+                   'One cannot step twice in the same river': 'Heraclitus', 'Happiness is not an ideal of reason '
+                                                                            'but of imagination': 'Immanuel Kant',
+                   'No man\'s knowledge here can go beyond his experience': 'John Lock', 'Liberty consists in doing '
+                                                                                         'what one desires': 'John '
+                                                                                                             'Stuart '
+                                                                                                             'Mill',
+                   'It is undesirable to believe a proposition when there is no ground whatever for supposing it '
+                   'true': 'Bertrand Russell', 'Even while they teach, men learn': 'Seneca', 'There is only one '
+                                                                                             'good, knowledge, '
+                                                                                             'and one evil, '
+                                                                                             'ignorance': 'Socrates',
+                   'If God did not exist, it would be necessary to invent Him': 'Voltaire',
+                   'This is patently absurd; but whoever wishes to become a philosopher must learn not to be frightened by absurdities': 'Bertrand Russell',
+                   'We are what we repeatedly do. Excellence, then, is not an act, but a habit': 'Aristotle',
+                   'Only one man ever understood me, and he didn’t understand me': 'Hegel',
+                   'The mind is furnished with ideas by experience alone': 'John Lock',
+                   'Life must be understood backward. But it must be lived forward': 'Soren Kierkegaard',
+                   'You can discover more about a person in an hour of play than in a year of conversation': 'Plato',
+                   'Things alter for the worse spontaneously, if they be not altered for the better designedly': 'Francis Bacon',
+                   'I would never die for my beliefs because I might be wrong': 'Bertrand Russell',
+                   'Man is condemned to be free': 'Jean-Paul Sartre',
+                   'The only thing I know is that I know nothing': 'Socrates',
+                   'If you would be a real seeker after truth, it is necessary that at least once in your life you doubt, as far as possible, all things': 'Rene Descartes',
+                   'I can control my passions and emotions if I can understand their nature': 'Spinoza',
+                   'Freedom is secured not by the fulfilling of one\'s desires, but by the removal of desire': 'Epictetus',
+                   'Man is the measure of all things': 'Protagoras'}
+
+# This is the end of the main loop.
+root.mainloop()
