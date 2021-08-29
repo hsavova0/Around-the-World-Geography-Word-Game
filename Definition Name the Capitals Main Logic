@@ -1,0 +1,71 @@
+def name_the_capitals_main_logic(countries_list, countries_dict, total_num_capitals, fortune_dict):
+    HEIGHT_COUNTRIES_CAPITALS = 700
+    WIDTH_COUNTRIES_CAPITALS = 2000
+    # In order to avoid bugs the second screen should always be constructed as a TopLevel.
+    master_countries_capitals = tk.Toplevel()
+    canvas_countries_capitals = tk.Canvas(master_countries_capitals, height=HEIGHT_COUNTRIES_CAPITALS, width=WIDTH_COUNTRIES_CAPITALS)
+    canvas_countries_capitals.pack()
+    frame_countries_capitals = tk.Frame(master_countries_capitals, bg='#D2DAF4')
+    frame_countries_capitals.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+    block = tk.BooleanVar(root, False)
+    while True:
+        master_countries_capitals.update_idletasks()
+        random.shuffle(countries_list)
+        first_country = countries_list[0]
+        guessed_capitals = total_num_capitals - len(countries_list)
+        capitals_to_guess = total_num_capitals - guessed_capitals
+        label_total_num_countries_text = tk.Label(frame_countries_capitals, text=f'Total number of capitals: {total_num_capitals}')
+        label_total_num_countries_text.place(x=1000, y=25)
+        label_random_country = tk.Label(frame_countries_capitals,
+                                                 text=f'Random country: {first_country.upper()}', width=50,
+                                                 font=18)
+        label_random_country.place(x=250, y=100)
+        label_question_capitals = tk.Label(frame_countries_capitals, text='Write the name of the capital here:', width=35, font=18)
+        label_question_capitals.place(x=325, y=200)
+        label_capitals_to_guess = tk.Label(frame_countries_capitals, text=f'Number of capitals to guess: {capitals_to_guess}')
+        label_capitals_to_guess.place(x=1000, y=100)
+        label_number_of_guessed_capitals = tk.Label(frame_countries_capitals,
+                                                     text=f'Number of guessed capitals: {guessed_capitals}')
+        label_number_of_guessed_capitals.place(x=1000, y=150)
+        entry_capital = tk.Entry(master_countries_capitals, width=30, font=18)
+        entry_capital.place(x=500, y=350)
+        label_answer = tk.Label(frame_countries_capitals, text='Your prize will be displayed here', width=100, height=10,
+                                font=12)
+        label_answer.place(x=50, y=350)
+
+        def retrieve_user_input_data_capitals():
+            current_input_capital = entry_capital.get()
+            entry_capital.delete(0, tk.END)
+            block.set(False)
+            if current_input_capital == countries_dict[first_country]:
+                searched_index = countries_list.index(first_country)
+                countries_list.pop(searched_index)
+                root.withdraw()
+                messagebox.showinfo('App', f'Correct answer!')
+            else:
+                root.withdraw()
+                messagebox.showinfo('App', f'Oops! Error! The correct answer was {countries_dict[first_country]}')
+            return countries_list
+
+        button_capitals_new_windows = tk.Button(frame_countries_capitals, text='Enter', width=10, font=18,
+                                                 command=lambda: retrieve_user_input_data_capitals())
+        button_capitals_new_windows.place(x=700, y=275)
+        block.set(True)
+        root.wait_variable(block)
+        if len(countries_list) == 0:
+            guessed_capitals = total_num_capitals
+            capitals_to_guess = 0
+            label_capitals_to_guess = tk.Label(frame_countries_capitals,
+                                                text=f'Number of countries to guess: {capitals_to_guess}')
+            label_capitals_to_guess.place(x=1000, y=100)
+            label_number_of_guessed_capitals = tk.Label(frame_countries_capitals,
+                                                         text=f'Number of guessed countries: {guessed_capitals}')
+            label_number_of_guessed_capitals.place(x=1000, y=150)
+            keys = list(fortune_dict.keys())
+            random.shuffle(keys)
+            key = keys[0]
+            label_answer = tk.Label(frame_countries_capitals, text=f'{key}, \n {fortune_dict[key]}', width=100, height=10,
+                                    font=12)
+            label_answer.place(x=50, y=350)
+            break
+    master_countries_capitals.mainloop()
