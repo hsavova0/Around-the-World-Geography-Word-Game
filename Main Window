@@ -1,0 +1,56 @@
+# This is the structure of the main window.
+canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
+canvas.pack()
+frame: Frame = tk.Frame(root)
+frame.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+# Background image main window.
+background_image_first_screen_open = open(file='clouds.PNG')
+background_image_first_screen = tk.PhotoImage(file='clouds.PNG')
+# Labels of the main window.
+label_background = tk.Label(frame, image=background_image_first_screen)
+label_background.place(x=0, y=0)
+# Buttons of the main window. The buttons has been made functional with the continents() function.
+button_countries = tk.Button(frame, text='Name the Countries', bg='white', fg='grey', bd=20, width=15, font=18,
+                             command=lambda: continents())
+button_countries.place(x=325, y=BUTTONS_Y)
+button_capitals = tk.Button(frame, text='Name the Capitals', bg='white', fg='grey', bd=20, width=15, font=18,
+                            command=lambda: continents_1())
+button_capitals.place(x=875, y=BUTTONS_Y)
+button_rules = tk.Button(frame, text='Rules', bg='white', fg='grey', bd=20, width=5, font=1, command=lambda : rules())
+button_rules.place(x=1125, y=20)
+fortune_cookies = {'The unexamined life is not worth living': 'Socrates', 'Entities should not be multiplied '
+                                                                          'unnecessarily': 'William of Ockham',
+                   'The life of man (in a state of nature) is solitary, poor, nasty, brutish, and short': 'Thomas '
+                                                                                                          'Hobbes',
+                   'He who thinks great thoughts, often makes great errors': 'Martin Heidegger',
+                   'We live in the best of all possible worlds': 'Leibniz', 'What is rational is actual and what '
+                                                                            'is actual is rational': 'Hegel',
+                   'One cannot step twice in the same river': 'Heraclitus', 'Happiness is not an ideal of reason '
+                                                                            'but of imagination': 'Immanuel Kant',
+                   'No man\'s knowledge here can go beyond his experience': 'John Lock', 'Liberty consists in doing '
+                                                                                         'what one desires': 'John '
+                                                                                                             'Stuart '
+                                                                                                             'Mill',
+                   'It is undesirable to believe a proposition when there is no ground whatever for supposing it '
+                   'true': 'Bertrand Russell', 'Even while they teach, men learn': 'Seneca', 'There is only one '
+                                                                                             'good, knowledge, '
+                                                                                             'and one evil, '
+                                                                                             'ignorance': 'Socrates',
+                   'If God did not exist, it would be necessary to invent Him': 'Voltaire',
+                   'This is patently absurd; but whoever wishes to become a philosopher must learn not to be frightened by absurdities': 'Bertrand Russell',
+                   'We are what we repeatedly do. Excellence, then, is not an act, but a habit': 'Aristotle',
+                   'Only one man ever understood me, and he didn’t understand me': 'Hegel',
+                   'The mind is furnished with ideas by experience alone': 'John Lock',
+                   'Life must be understood backward. But it must be lived forward': 'Soren Kierkegaard',
+                   'You can discover more about a person in an hour of play than in a year of conversation': 'Plato',
+                   'Things alter for the worse spontaneously, if they be not altered for the better designedly': 'Francis Bacon',
+                   'I would never die for my beliefs because I might be wrong': 'Bertrand Russell',
+                   'Man is condemned to be free': 'Jean-Paul Sartre',
+                   'The only thing I know is that I know nothing': 'Socrates',
+                   'If you would be a real seeker after truth, it is necessary that at least once in your life you doubt, as far as possible, all things': 'Rene Descartes',
+                   'I can control my passions and emotions if I can understand their nature': 'Spinoza',
+                   'Freedom is secured not by the fulfilling of one\'s desires, but by the removal of desire': 'Epictetus',
+                   'Man is the measure of all things': 'Protagoras'}
+
+# This is the end of the main loop.
+root.mainloop()
