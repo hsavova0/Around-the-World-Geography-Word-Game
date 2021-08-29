@@ -1,11 +1,56 @@
-# This block of code opens a rules windows.
-
-def open_rules_window():
+def rules():
+    # Here is constructed the screen where the player will actually play the game.
     HEIGHT_RULES = 700
     WIDTH_RULES = 2000
-    master = tk.Tk()
-    canvas_rules = tk.Canvas(master, height=HEIGHT_RULES, width=WIDTH_RULES)
+    # In order to avoid bugs the second screen should always be constructed as a TopLevel.
+    master_rules = tk.Toplevel()
+    canvas_rules = tk.Canvas(master_rules, height=HEIGHT_RULES, width=WIDTH_RULES)
     canvas_rules.pack()
-    frame_rules = tk.Frame(master, bg='#D2DAF4')
+    frame_rules = tk.Frame(master_rules, bg='#D2DAF4')
     frame_rules.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
-    master.mainloop()
+
+    label_general_rules = tk.Label(master_rules, text='General rules', width=30, font=18)
+    label_general_rules.place(x=200, y=100)
+    label_general_rules_text = tk.Label(master_rules, text='=>The program is case sensitive.\nUse only small letters for the input.', width=30, font=15, justify=tk.LEFT)
+    label_general_rules_text.place(x=200, y=150)
+    label_general_rules_text_1 = tk.Label(master_rules, text='=>You have an unlimited number of \nattempts and unlimited time.', width=30, font=15, justify=tk.LEFT)
+    label_general_rules_text_1.place(x=200, y=210)
+    label_general_rules_text_2 = tk.Label(master_rules, text='=>You will always see the total num-\nber of countries|capitals, how many \nhas been guessed and how many \nare left.',
+                                          width=30, font=15, justify=tk.LEFT)
+    label_general_rules_text_2.place(x=200, y=270)
+    label_general_rules_text_3 = tk.Label(master_rules, text='=>Each time you enter an input, \n the list with the countries will shuffle \n and you will get another task.', width=30, font=15, justify=tk.LEFT)
+    label_general_rules_text_3.place(x=200, y=380)
+    label_general_rules_text_4 = tk.Label(master_rules,
+                                          text='=>The pize for guessing all countries| \n capitals is a fortune cookie.',
+                                          width=30, font=15, justify=tk.LEFT)
+    label_general_rules_text_4.place(x=200, y=470)
+    label_knowledge_countries = tk.Label(master_rules, text='Knowledge about countries', width=30, font=18)
+    label_knowledge_countries.place(x=600, y=100)
+    label_knowledge_countries_1 = tk.Label(master_rules, text='=>The program will shuffle the first \n letters of the countries. \nYou have to guess the countries.', width=30, font=18, justify=tk.LEFT)
+    label_knowledge_countries_1.place(x=600, y=150)
+    label_knowledge_countries_2 = tk.Label(master_rules, text='=>If your answer is incorrect, \n the program will pop up a message \nin which will be included one \nof the possible answers.',
+                                           width=30, font=18, justify=tk.LEFT)
+    label_knowledge_countries_2.place(x=600, y=240)
+    label_knowledge_countries_3 = tk.Label(master_rules,
+                                           text='=>If your answer is correct, \n the program will display a message.',
+                                           width=30, font=18, justify=tk.LEFT)
+    label_knowledge_countries_3.place(x=600, y=350)
+    label_knowledge_countries_4 = tk.Label(master_rules,
+                                           text='=>If the country consists of two \nwords, separated by space, make \nsure to use a single space between \nthem. If they are separated by a "-", \nmake sure there are no spaces \nbefore and after the dash.',
+                                           width=30, font=18, justify=tk.LEFT)
+    label_knowledge_countries_4.place(x=600, y=420)
+    label_knowledge_capitals = tk.Label(master_rules, text='Knowledge about capitals', width=30, font=18)
+    label_knowledge_capitals.place(x=1000, y=100)
+    label_knowledge_capitals_1 = tk.Label(master_rules, text='=>The program will shuffle the \ncountries in the list and will \ndisplay a country. You have to \nguess the capital.', width=30, font=18, justify=tk.LEFT)
+    label_knowledge_capitals_1.place(x=1000, y=150)
+    label_knowledge_capitals_2 = tk.Label(master_rules, text='=>If your answer is incorrect, \n the program will pop up a message \nin which will be included \nthe name of the capital.',
+                                           width=30, font=18, justify=tk.LEFT)
+    label_knowledge_capitals_2.place(x=1000, y=260)
+    label_knowledge_capitals_3 = tk.Label(master_rules,
+                                           text='=>If your answer is correct, \n the program will display a message.',
+                                           width=30, font=18, justify=tk.LEFT)
+    label_knowledge_capitals_3.place(x=1000, y=370)
+    label_knowledge_capitals_4 = tk.Label(master_rules,
+                                           text='=>If the capital consists of two \nwords, separated by space, make \nsure to use a single space between \nthem. If they are separated by a "-", \nmake sure there are no spaces \nbefore and after the dash.',
+                                           width=30, font=18, justify=tk.LEFT)
+    label_knowledge_capitals_4.place(x=1000, y=440)
